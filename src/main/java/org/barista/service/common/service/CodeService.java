@@ -5,7 +5,8 @@ import org.barista.service.common.entity.CodeEntity;
 import org.barista.service.common.vo.CodeVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CodeService {
-    List<CodeEntity> getCodeList(String grpCd);
+    List<CodeEntity> getCodeList(Map<String, Object> paramMap);
 }

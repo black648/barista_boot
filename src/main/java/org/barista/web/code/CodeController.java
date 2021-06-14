@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/common")
@@ -20,7 +21,11 @@ public class CodeController {
     @RequestMapping(value = "/topMenu", method = RequestMethod.POST)
     public APIResult getTopMenu() {
 
-        List<CodeEntity> list = ServiceUtil.getCodeService().getCodeList("GR002");
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("grpcd","GR002");
+        paramMap.put("lvl",2);
+        paramMap.put("useable","T");
+        List<CodeEntity> list = ServiceUtil.getCodeService().getCodeList(paramMap);
 
         HashMap<String, Object> responseKeyValue = new HashMap<>();
         responseKeyValue.put("list", list);

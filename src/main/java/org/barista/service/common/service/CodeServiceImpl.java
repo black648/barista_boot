@@ -5,9 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.barista.framework.base.BaseSpecs;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.service.common.entity.CodeEntity;
-import org.barista.service.common.mapper.CodeMapper;
 import org.barista.service.common.repository.CodeRepository;
-import org.barista.service.common.vo.CodeVO;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +23,14 @@ public class CodeServiceImpl implements CodeService{
     private final CodeRepository codeRepository;
 
     @Override
-    public List<CodeEntity> getCodeList(String grpCd) {
+    public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
+// when
+        Sort.Order lvlOrder = Sort.Order.asc("lvl");          // store
+        Sort.Order ordernoOrder = Sort.Order.asc("orderno");
 
-        return codeRepository.findByGrpcd(grpCd);
+        Sort sort = Sort.by(lvlOrder, ordernoOrder);
+
+        return codeRepository.findByGrpcd(paramMap, sort);
     }
 
     private static Map<String, Object> paramSet (Map<String, Object> paramMap) {
