@@ -31,7 +31,7 @@ public class CodeRepository {
                         lvlEq((Integer) paramMap.get("lvl")),
                         useableEq()
                 )
-                .orderBy((OrderSpecifier<?>) getOrderSpecifier(sort))
+                .orderBy(getOrderSpecifier(sort).stream().toArray(OrderSpecifier[]::new))
                 .fetch();
     }
 

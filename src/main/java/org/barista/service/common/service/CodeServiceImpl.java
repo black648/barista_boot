@@ -25,10 +25,7 @@ public class CodeServiceImpl implements CodeService{
     @Override
     public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
 // when
-        Sort.Order lvlOrder = Sort.Order.asc("lvl");          // store
-        Sort.Order ordernoOrder = Sort.Order.asc("orderno");
-
-        Sort sort = Sort.by(lvlOrder, ordernoOrder);
+        Sort sort = Sort.by(Sort.Order.asc("lvl"), Sort.Order.asc("orderno"));
 
         return codeRepository.findByGrpcd(paramMap, sort);
     }
