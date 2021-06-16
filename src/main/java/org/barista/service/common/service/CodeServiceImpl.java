@@ -24,10 +24,22 @@ public class CodeServiceImpl implements CodeService{
 
     @Override
     public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
-// when
+
         Sort sort = Sort.by(Sort.Order.asc("lvl"), Sort.Order.asc("orderno"));
 
-        return codeRepository.findByGrpcd(paramMap, sort);
+        List<CodeEntity> list = codeRepository.getAll(paramMap, sort);
+
+        paramMap.put("grpcd","GR002");
+        paramMap.put("lvl",2);
+        paramMap.put("useable","T");
+
+        list.stream().forEach(code -> {
+            paramMap.put("pcd",code.getCd());
+            paramMap.put("lvl",3);
+            code.setCodeList(codeRepository.getAll(paramMap, sort));
+        });
+
+        return list;
     }
 
     private static Map<String, Object> paramSet (Map<String, Object> paramMap) {

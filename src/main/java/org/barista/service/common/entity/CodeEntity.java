@@ -6,11 +6,13 @@ import org.barista.framework.base.BaseEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name="code")
 @ToString
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -83,5 +85,8 @@ public class CodeEntity extends BaseEntity  implements Serializable {
     //사용자정의3
     @Column(columnDefinition = "varchar(500)")
     private String userdef3;
+
+    @Transient //컬럼생성 x
+    private Collection<CodeEntity> codeList;
 
 }

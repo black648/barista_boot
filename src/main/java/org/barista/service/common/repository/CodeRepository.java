@@ -22,7 +22,7 @@ import static org.barista.service.common.entity.QCodeEntity.codeEntity;
 public class CodeRepository {
     private final JPAQueryFactory queryFactory;
 
-    public List<CodeEntity> findByGrpcd(Map<String, Object> paramMap, Sort sort) {
+    public List<CodeEntity> getAll(Map<String, Object> paramMap, Sort sort) {
         return queryFactory.selectFrom(codeEntity)
                 .where(
                         grpcdEq((String) paramMap.get("grpcd")),
