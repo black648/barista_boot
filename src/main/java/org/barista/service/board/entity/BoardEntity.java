@@ -15,68 +15,68 @@ import javax.persistence.*;
 public class BoardEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    @Column(columnDefinition = "varchar(50)")
+    private String id;
 
     //게시판 번호(형태)
-    @Column(columnDefinition = "smallint")
-    private int INSTANCEID;
+    @Column(columnDefinition = "varchar(50)")
+    private String instanceid;
 
     //게시글 명
     @Column(columnDefinition = "varchar(100)")
-    private String TITLE;
+    private String title;
 
     //내용
     @Column
     @Lob
-    private String CONTENT;
+    private String content;
 
     //등록자
     @Column(columnDefinition = "int")
-    private Long REGISTERNO;
+    private Long registerno;
 
     //등록자명
     @Column(columnDefinition = "varchar(100)")
-    private String REGISTERNAME;
+    private String registername;
 
     //수정자
     @Column(columnDefinition = "int")
-    private Long MODIFIERNO;
+    private Long modifierno;
 
     //수정자명
     @Column(columnDefinition = "varchar(100)")
-    private String MODIFIERNAME;
+    private String modifiername;
 
     //공지여부
-    @Column(columnDefinition = "varchar(100)")
-    private String ISNOTICE;
+    @Column(columnDefinition = "varchar(1)")
+    private String isnotice;
 
     //공개여부
     @Column(columnDefinition = "varchar(1)")
-    private String ISPUBLIC;
+    private String ispublic;
 
     //삭제여부
     @Column(columnDefinition = "varchar(1)")
-    private String DELYN;
+    private String delyn;
 
     //조회수
     @Column(columnDefinition = "int")
-    private Long READCNT;
+    private Long readcnt;
 
     //예비필드1
     @Column(columnDefinition = "varchar(100)")
-    private String ETC1;
+    private String etc1;
 
     //예비필드2
     @Column(columnDefinition = "varchar(100)")
-    private String ETC2;
+    private String etc2;
 
     //예비필드3
     @Column(columnDefinition = "varchar(100)")
-    private String ETC3;
+    private String etc3;
 
     //파일 그룹핑넘버
     @Column(columnDefinition = "int")
-    private Long FILEGRPNO;
+    private Long filegrpno;
 
 }

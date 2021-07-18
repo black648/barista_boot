@@ -14,10 +14,9 @@ import javax.persistence.*;
 public class BoardInstanceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long INSTANCEID;
+    @Column(columnDefinition = "varchar(50)")
+    private String id;
 
-    //게시판 번호(형태)
-    @Column(columnDefinition = "varchar(20)")
-    private String INSTANCENAME;
+    @Column(columnDefinition = "varchar(100)")
+    private String name;
 }
