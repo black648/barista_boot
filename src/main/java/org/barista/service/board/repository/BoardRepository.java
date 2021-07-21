@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.barista.service.board.entity.QBoardEntity.boardEntity;
+import static org.barista.service.common.entity.QCodeEntity.codeEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -29,15 +29,17 @@ public class BoardRepository {
                 .where(
                         idEq((String) paramMap.get("id")),
                         instanceIdEq((String) paramMap.get("instanceid")),
-                        contentEq((String) paramMap.get("content")),
-                        titleEq((String) paramMap.get("title")),
-                        registerDeTo((String) paramMap.get("title")),
-                        registerDeFrom((String) paramMap.get("title")),
-                        isPublicEq((String) paramMap.get("title")),
-                        isNoticeEq((String) paramMap.get("title")),
-                        delYnEq((String) paramMap.get("title"))
+                        contentLike((String) paramMap.get("content")),
+                        titleLike((String) paramMap.get("title")),
+                        registerDeTo((String) paramMap.get("registerDeTo")),
+                        registerDeFrom((String) paramMap.get("registerDeFrom")),
+                        isPublicEq((String) paramMap.get("isPublic")),
+                        isNoticeEq((String) paramMap.get("isNotice")),
+                        delYnEq((String) paramMap.get("delYn"))
                 )
                 .orderBy(getOrderSpecifier(sort).stream().toArray(OrderSpecifier[]::new))
+                .offset(setPage((String) paramMap.get("page")))
+                .limit(setPageSize((String) paramMap.get("pageSize")))
                 .fetch();
     }
 
@@ -50,11 +52,11 @@ public class BoardRepository {
         return instanceid != null ? boardEntity.instanceid.eq(instanceid) : null;
     }
 //    검색 영역
-    private BooleanExpression contentEq(String content) {
+    private BooleanExpression contentLike(String content) {
         return content != null ? boardEntity.content.like(content) : null;
     }
 
-    private BooleanExpression titleEq(String title) {
+    private BooleanExpression titleLike(String title) {
         return title != null ? boardEntity.title.like(title) : null;
     }
 
@@ -78,6 +80,13 @@ public class BoardRepository {
         return delYn != null ? boardEntity.delyn.eq(delYn) : null;
     }
 
+    private int setPage(String page) {
+        return page != null ? Integer.parseInt(page) : 0;
+    }
+
+    private int setPageSize(String pageSize) {
+        return pageSize != null ? Integer.parseInt(pageSize) : 20;
+    }
 
     //order by
     private List<OrderSpecifier> getOrderSpecifier(Sort sort) {
