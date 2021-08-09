@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.barista.service.board.entity.QBoardEntity.boardEntity;
-import static org.barista.service.common.entity.QCodeEntity.codeEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -28,7 +27,7 @@ public class BoardRepository {
         return queryFactory.selectFrom(boardEntity)
                 .where(
                         idEq((String) paramMap.get("id")),
-                        instanceIdEq((String) paramMap.get("instanceid")),
+                        instanceIdEq((String) paramMap.get("instanceId")),
                         contentLike((String) paramMap.get("content")),
                         titleLike((String) paramMap.get("title")),
                         registerDeTo((String) paramMap.get("registerDeTo")),
