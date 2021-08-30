@@ -37,7 +37,7 @@ public class CodeRepository {
 
     // 조건부
     private BooleanExpression grpcdEq(String grpcd) {
-        return grpcd != null ? codeEntity.grpcd.eq(grpcd) : null;
+        return grpcd != null ? codeEntity.grpCd.eq(grpcd) : null;
     }
 
     private BooleanExpression cdEq(String cd) {
@@ -49,11 +49,11 @@ public class CodeRepository {
     }
 
     private BooleanExpression lvlEq(int lvl) {
-        return lvl != 0 ? codeEntity.lvl.eq(lvl) : null;
+        return lvl != 0 ? codeEntity.level.eq(lvl) : null;
     }
 
     private BooleanExpression useableEq() {
-        return codeEntity.useable.eq("T");
+        return codeEntity.useAble.eq("T");
     }
 
     //order by

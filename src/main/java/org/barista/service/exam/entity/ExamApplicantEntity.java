@@ -19,28 +19,28 @@ public class ExamApplicantEntity extends BaseEntity {
 
 
     @Column(columnDefinition = "varchar(100)")
-    private String EXAMSN;
+    private String examSn;
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String APCSN;
-
-    @Column(columnDefinition = "int")
-    private Long REGISTERNO;
-
-    @Column(columnDefinition = "varchar(100)")
-    private String REGISTERNAME;
-
-    @Column(columnDefinition = "varchar(2)")
-    private String GRADE;
-
-    @Column(columnDefinition = "varchar(400)")
-    private String REGISTERENGNAME;
-
-    @Column(columnDefinition = "varchar(10)")
-    private String BIRTH;
+    private String apcSn;
 
     @Column(columnDefinition = "varchar(20)")
-    private String EXAMPLACECODE;
+    private String registerNo;
+
+    @Column(columnDefinition = "varchar(100)")
+    private String registerName;
+
+    @Column(columnDefinition = "varchar(2)")
+    private String grade;
+
+    @Column(columnDefinition = "varchar(400)")
+    private String registerEngName;
+
+    @Column(columnDefinition = "varchar(10)")
+    private String birth;
+
+    @Column(columnDefinition = "varchar(20)")
+    private String examPlaceCode;
 
 }

@@ -18,25 +18,21 @@ public class ResumeEduEntity extends BaseEntity  implements Serializable {
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String RESUMESN;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long RNO;
+    private String resumesn;
 
     @Column(columnDefinition = "varchar(8)")
-    private String BEGINDE;
+    private String beginde;
 
     @Column(columnDefinition = "varchar(8)")
-    private String ENDDE;
+    private String endde;
 
     @Column(columnDefinition = "varchar(400)")
-    private String INSTITUTION;
+    private String institution;
 
     @Column(columnDefinition = "varchar(400)")
-    private String EDUCONTENT;
+    private String educontent;
 
     @Column(columnDefinition = "varchar(50)")
-    private String EDUTIME;
+    private String edutime;
 
 }

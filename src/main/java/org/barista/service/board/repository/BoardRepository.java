@@ -48,7 +48,7 @@ public class BoardRepository {
     }
 
     private BooleanExpression instanceIdEq(String instanceid) {
-        return instanceid != null ? boardEntity.instanceid.eq(instanceid) : null;
+        return instanceid != null ? boardEntity.instanceId.eq(instanceid) : null;
     }
 //    검색 영역
     private BooleanExpression contentLike(String content) {
@@ -60,23 +60,23 @@ public class BoardRepository {
     }
 
     private BooleanExpression registerDeTo(String registerDeTo) {
-        return ObjectUtil.isNotEmpty(registerDeTo) ? boardEntity.registde.after(LocalDateTime.parse(registerDeTo)) : null;
+        return ObjectUtil.isNotEmpty(registerDeTo) ? boardEntity.registDe.after(LocalDateTime.parse(registerDeTo)) : null;
     }
 
     private BooleanExpression registerDeFrom(String registerDeFrom) {
-        return ObjectUtil.isNotEmpty(registerDeFrom) ? boardEntity.registde.before(LocalDateTime.parse(registerDeFrom)) : null;
+        return ObjectUtil.isNotEmpty(registerDeFrom) ? boardEntity.registDe.before(LocalDateTime.parse(registerDeFrom)) : null;
     }
 
     private BooleanExpression isPublicEq(String isPublic) {
-        return isPublic != null ? boardEntity.ispublic.eq(isPublic) : null;
+        return isPublic != null ? boardEntity.isPublic.eq(isPublic) : null;
     }
 
     private BooleanExpression isNoticeEq(String isNotice) {
-        return isNotice != null ? boardEntity.isnotice.eq(isNotice) : null;
+        return isNotice != null ? boardEntity.isNotice.eq(isNotice) : null;
     }
 
     private BooleanExpression delYnEq(String delYn) {
-        return delYn != null ? boardEntity.delyn.eq(delYn) : null;
+        return delYn != null ? boardEntity.delYn.eq(delYn) : null;
     }
 
     private int setPage(String page) {

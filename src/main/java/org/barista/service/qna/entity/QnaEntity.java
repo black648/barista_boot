@@ -21,36 +21,36 @@ public class QnaEntity extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qno;
 
-    @Column(columnDefinition = "int")
-    private Long REGISTERNO;
+    @Column(columnDefinition = "varchar(20)")
+    private String registerNo;
 
     @CreatedDate
     @Column(columnDefinition = "date")
-    private LocalDateTime ANSWERDE;
+    private LocalDateTime answerDe;
 
     @Column(columnDefinition = "varchar(400)")
-    private String TITLE;
+    private String title;
 
     @Column
     @Lob
-    private String CONTENT;
+    private String content;
 
-    @Column(columnDefinition = "varchar(4)")
-    private String DELETEAT;
+    @Column(columnDefinition = "varchar(1)")
+    private String deleteAt;
 
-    @Column(columnDefinition = "varchar(4)")
-    private String OFFAT;
+    @Column(columnDefinition = "varchar(1)")
+    private String offAt;
 
     @Column(columnDefinition = "varchar(300)")
-    private String EMAIL;
+    private String email;
 
     @Column(columnDefinition = "varchar(40)")
-    private String MIDDLECODE;
+    private String middleCode;
 
     @Column(columnDefinition = "varchar(40)")
-    private String ROWCODE;
+    private String rowCode;
 
     @Column(columnDefinition = "varchar(4)")
-    private String STATE;
+    private String state;
 
 }

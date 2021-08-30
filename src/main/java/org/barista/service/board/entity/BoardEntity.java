@@ -20,7 +20,7 @@ public class BoardEntity extends BaseEntity {
 
     //게시판 번호(형태)
     @Column(columnDefinition = "varchar(50)")
-    private String instanceid;
+    private String instanceId;
 
     //게시글 명
     @Column(columnDefinition = "varchar(100)")
@@ -32,36 +32,36 @@ public class BoardEntity extends BaseEntity {
     private String content;
 
     //등록자
-    @Column(columnDefinition = "int")
-    private Long registerno;
+    @Column(columnDefinition = "varchar(20)")
+    private String registerNo;
 
     //등록자명
     @Column(columnDefinition = "varchar(100)")
-    private String registername;
+    private String registerName;
 
     //수정자
-    @Column(columnDefinition = "int")
-    private Long modifierno;
+    @Column(columnDefinition = "varchar(20)")
+    private String modifierNo;
 
     //수정자명
     @Column(columnDefinition = "varchar(100)")
-    private String modifiername;
+    private String modifierName;
 
     //공지여부
     @Column(columnDefinition = "varchar(1)")
-    private String isnotice;
+    private String isNotice;
 
     //공개여부
     @Column(columnDefinition = "varchar(1)")
-    private String ispublic;
+    private String isPublic;
 
     //삭제여부
     @Column(columnDefinition = "varchar(1)")
-    private String delyn;
+    private String delYn;
 
     //조회수
     @Column(columnDefinition = "int")
-    private Long readcnt;
+    private Long readCnt;
 
     //예비필드1
     @Column(columnDefinition = "varchar(100)")
@@ -76,7 +76,7 @@ public class BoardEntity extends BaseEntity {
     private String etc3;
 
     //파일 그룹핑넘버
-    @Column(columnDefinition = "int")
-    private Long filegrpno;
+    @Column(columnDefinition = "varchar(20)")
+    private String fileGrpNo;
 
 }

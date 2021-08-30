@@ -16,25 +16,21 @@ public class ResumeSchoolEntity  implements Serializable {
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String RESUMESN;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long RNO;
+    private String resumesn;
 
     @Column(columnDefinition = "varchar(8)")
-    private String BEGINDE;
+    private String beginde;
 
     @Column(columnDefinition = "varchar(8)")
-    private String ENDDE;
+    private String endde;
 
     @Column(columnDefinition = "varchar(400)")
-    private String SCHOOL;
+    private String school;
 
     @Column(columnDefinition = "varchar(200)")
-    private String MAJOR;
+    private String major;
 
     @Column(columnDefinition = "varchar(100)")
-    private String DIVISION;
+    private String division;
 
 }
