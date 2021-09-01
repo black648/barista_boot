@@ -22,9 +22,9 @@ public class CodeController {
     public APIResult getTopMenu() {
 
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("grpcd","GR002");
-        paramMap.put("lvl",2);
-        paramMap.put("useable","T");
+        paramMap.put("grpCd","GR002");
+        paramMap.put("level",2);
+        paramMap.put("useAble","T");
         List<CodeEntity> list = ServiceUtil.getCodeService().getCodeList(paramMap);
 
         HashMap<String, Object> responseKeyValue = new HashMap<>();

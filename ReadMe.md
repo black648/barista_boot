@@ -38,3 +38,6 @@ VALUES ('0', 'ID_SEQ');
 
 /* 시퀀스 삽입 */
 SELECT get_seq('ID_SEQ');
+
+3) QueryDSL 
+ * 공식문서 : https://querydsl.com/static/querydsl/latest/reference/html/ch02s03.html

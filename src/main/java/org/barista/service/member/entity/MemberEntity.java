@@ -2,20 +2,17 @@ package org.barista.service.member.entity;
 
 import lombok.*;
 import org.barista.framework.base.BaseEntity;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
+@Entity(name="member")
 @Table(name="member")
 @ToString
 @Getter
@@ -54,6 +51,7 @@ public class MemberEntity extends BaseEntity implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
+    @Transient
     private List<String> roles = new ArrayList<>();
 
     @Override

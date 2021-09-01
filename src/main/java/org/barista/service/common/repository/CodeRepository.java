@@ -25,10 +25,10 @@ public class CodeRepository {
     public List<CodeEntity> getAll(Map<String, Object> paramMap, Sort sort) {
         return queryFactory.selectFrom(codeEntity)
                 .where(
-                        grpcdEq((String) paramMap.get("grpcd")),
+                        grpCdEq((String) paramMap.get("grpCd")),
                         cdEq((String) paramMap.get("cd")),
                         pcdEq((String) paramMap.get("pcd")),
-                        lvlEq((Integer) paramMap.get("lvl")),
+                        levelEq((Integer) paramMap.get("level")),
                         useableEq()
                 )
                 .orderBy(getOrderSpecifier(sort).stream().toArray(OrderSpecifier[]::new))
@@ -36,8 +36,8 @@ public class CodeRepository {
     }
 
     // 조건부
-    private BooleanExpression grpcdEq(String grpcd) {
-        return grpcd != null ? codeEntity.grpCd.eq(grpcd) : null;
+    private BooleanExpression grpCdEq(String grpCd) {
+        return grpCd != null ? codeEntity.grpCd.eq(grpCd) : null;
     }
 
     private BooleanExpression cdEq(String cd) {
@@ -48,8 +48,8 @@ public class CodeRepository {
         return pcd != null ? codeEntity.pcd.eq(pcd) : null;
     }
 
-    private BooleanExpression lvlEq(int lvl) {
-        return lvl != 0 ? codeEntity.level.eq(lvl) : null;
+    private BooleanExpression levelEq(int level) {
+        return level != 0 ? codeEntity.level.eq(level) : null;
     }
 
     private BooleanExpression useableEq() {

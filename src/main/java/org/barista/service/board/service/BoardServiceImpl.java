@@ -20,7 +20,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardEntity> getList(Map<String, Object> paramMap) {
-        Sort sort = Sort.by(Sort.Order.asc("registde"));
+        Sort sort = Sort.by(Sort.Order.asc("registDe"));
         List<BoardEntity> list = boardRepository.getList(paramMap, sort);
 
         return list;

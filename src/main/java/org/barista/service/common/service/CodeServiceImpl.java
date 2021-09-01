@@ -25,17 +25,17 @@ public class CodeServiceImpl implements CodeService{
     @Override
     public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
 
-        Sort sort = Sort.by(Sort.Order.asc("lvl"), Sort.Order.asc("orderno"));
+        Sort sort = Sort.by(Sort.Order.asc("level"), Sort.Order.asc("orderNo"));
 
         List<CodeEntity> list = codeRepository.getAll(paramMap, sort);
 
-        paramMap.put("grpcd","GR002");
-        paramMap.put("lvl",2);
-        paramMap.put("useable","T");
+        paramMap.put("grpCd","GR002");
+        paramMap.put("level",2);
+        paramMap.put("useAble","T");
 
         list.stream().forEach(code -> {
             paramMap.put("pcd",code.getCd());
-            paramMap.put("lvl",3);
+            paramMap.put("level",3);
             code.setCodeList(codeRepository.getAll(paramMap, sort));
         });
 
@@ -46,14 +46,14 @@ public class CodeServiceImpl implements CodeService{
         if (ObjectUtil.isEmpty(paramMap)) {
             paramMap = new HashMap<>();
         }
-        paramMap.put("useable","T");
+        paramMap.put("useAble","T");
 
         return paramMap;
     }
 
     public static Specification<CodeEntity> codeSpecification(Map<String, Object> searchKeyword) {
         return (Specification<CodeEntity>) ((root, query, builder) -> {
-            query.orderBy(builder.asc(root.get("lvl")), builder.asc(root.get("orderno")));
+            query.orderBy(builder.asc(root.get("level")), builder.asc(root.get("orderNo")));
             List<Predicate> predicate = BaseSpecs.getPredicateWithKeyword(searchKeyword, root, builder);
 
             return builder.and(predicate.toArray(new Predicate[0]));
