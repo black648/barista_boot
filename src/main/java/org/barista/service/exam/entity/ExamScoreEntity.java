@@ -18,40 +18,40 @@ public class ExamScoreEntity {
 
 
     @Column(columnDefinition = "varchar(100)")
-    private String EXAMSN;
+    private String examSn;
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String APCSN;
+    private String apcSn;
 
     @Column(columnDefinition = "smallint")
-    private int SECTION1;
+    private int section1;
 
     @Column(columnDefinition = "smallint")
-    private int SECTION2;
+    private int section2;
 
     @Column(columnDefinition = "smallint")
-    private int SECTION3;
+    private int section3;
 
     @Column(columnDefinition = "smallint")
-    private int SECTION4;
+    private int section4;
 
     @Column(columnDefinition = "smallint")
-    private int SECTION5;
+    private int section5;
 
     @Column(columnDefinition = "smallint")
-    private int TOTAL;
+    private int total;
 
     @Column(columnDefinition = "smallint")
-    private int SCORE;
+    private int score;
 
     @Column(columnDefinition = "varchar(2)")
-    private String FAILYN;
+    private String failYn;
 
     @Column(columnDefinition = "varchar(2)")
-    private String PASSYN;
+    private String passYn;
 
     @Column(columnDefinition = "varchar(12)")
-    private String CALCULATIONDE;
+    private String calculationDe;
 
 }

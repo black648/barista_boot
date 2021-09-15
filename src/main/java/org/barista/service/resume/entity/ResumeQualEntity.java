@@ -18,19 +18,15 @@ public class ResumeQualEntity  implements Serializable {
     @Column(columnDefinition = "varchar(100)")
     private String RESUMESN;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long RNO;
-
     @Column(columnDefinition = "varchar(400)")
-    private String QUALNAME;
+    private String qualname;
 
     @Column(columnDefinition = "varchar(100)")
-    private String ISSUENO;
+    private String issueno;
 
     @Column(columnDefinition = "varchar(400)")
-    private String INSTITUTION;
+    private String institution;
 
     @Column(columnDefinition = "varchar(8)")
-    private String ISSUEDE;
+    private String issuede;
 }

@@ -17,28 +17,24 @@ public class ResumeCareerEntity extends BaseEntity implements Serializable {
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String RESUMESN;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long RNO;
+    private String resumesn;
 
     @Column(columnDefinition = "varchar(8)")
-    private String BEGINDE;
+    private String beginde;
 
     @Column(columnDefinition = "varchar(8)")
-    private String ENDDE;
+    private String endde;
 
     @Column(columnDefinition = "varchar(400)")
-    private String COMPANYNAME;
+    private String companyname;
 
     @Column(columnDefinition = "varchar(100)")
-    private String POSITION;
+    private String position;
 
     @Column(columnDefinition = "varchar(400)")
-    private String ASSIGNTASK;
+    private String assigntask;
 
     @Column(columnDefinition = "varchar(100)")
-    private String DEVISION;
+    private String devision;
 
 }

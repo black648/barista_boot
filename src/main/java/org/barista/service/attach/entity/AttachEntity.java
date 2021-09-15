@@ -15,35 +15,35 @@ import javax.persistence.*;
 public class AttachEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seqno;
+    @Column(columnDefinition = "varchar(20)")
+    private String seqNo;
 
     //저장된 파일명
     @Column(columnDefinition = "varchar(100)")
-    private String SAVEDFILENAME;
+    private String savedFileName;
 
     //원본파일명
     @Column(columnDefinition = "varchar(100)")
-    private String ORGFILENAME;
+    private String orgFileName;
 
     //파일저장소
     @Column(columnDefinition = "varchar(100)")
-    private String DIRPATH;
+    private String dirPath;
 
     //상태여부
     @Column(columnDefinition = "varchar(100)")
-    private String STATE;
+    private String state;
 
     //수정자
-    @Column(columnDefinition = "int")
-    private Long MODIFIERNO;
+    @Column(columnDefinition = "varchar(20)")
+    private String modifierNo;
 
     //파일 저장된 모듈
     @Column(columnDefinition = "varchar(100)")
-    private String DIVISION;
+    private String division;
 
     //모듈 그룹핑 넘버
     @Column(columnDefinition = "int")
-    private Long GRPNO;
+    private Long grpNo;
 
 }

@@ -22,54 +22,54 @@ public class EduApplicantEntity extends BaseEntity {
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String APCSN;
+    private String apcSn;
 
     @Column(columnDefinition = "varchar(100)")
-    private String EDUSN;
+    private String eduSn;
 
-    @Column(columnDefinition = "int")
-    private Long REGISTERNO;
+    @Column(columnDefinition = "varchar(20)")
+    private String registerNo;
 
     //등록자명
     @Column(columnDefinition = "varchar(100)")
-    private String REGISTERNAME;
+    private String registerName;
 
     @Column(columnDefinition = "smallint")
-    private int ZIPCODE;
+    private int zipCode;
 
     @Column(columnDefinition = "varchar(2000)")
-    private String ADRESS1;
+    private String adress1;
 
     @Column(columnDefinition = "varchar(2000)")
-    private String ADRESS2;
+    private String adress2;
 
     @Column(columnDefinition = "varchar(50)")
-    private String PHONE;
+    private String phone;
 
     @Column(columnDefinition = "varchar(50)")
-    private String EMAIL;
+    private String email;
 
     @LastModifiedDate
     @Column(columnDefinition = "varchar(2)")
-    private LocalDateTime FINALDE;
+    private LocalDateTime finalDe;
 
     @Column(columnDefinition = "varchar(2)")
-    private String FINALYN;
+    private String finalYn;
 
     @Column(columnDefinition = "varchar(2)")
-    private String EDUYN;
+    private String eduYn;
 
     @Column(columnDefinition = "varchar(100)")
-    private String REGISTERENGNAME;
+    private String registerEngName;
 
     @Column(columnDefinition = "varchar(50)")
-    private String REGISTERPHONE;
+    private String registerPhone;
 
     @Column(columnDefinition = "varchar(1)")
-    private String AGREE1;
+    private String agree1;
 
     @Column(columnDefinition = "varchar(1)")
-    private String AGREE2;
+    private String agree2;
 
 
 /*

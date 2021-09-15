@@ -16,55 +16,55 @@ public class EduMasterEntity extends BaseEntity {
 
     @Id
     @Column(columnDefinition = "varchar(100)")
-    private String EDUSN;
+    private String eduSn;
 
     @Column(columnDefinition = "varchar(50)")
-    private String DIVISION;
+    private String division;
 
     @Column(columnDefinition = "varchar(200)")
-    private String TITLE;
+    private String title;
 
     //내용
     @Column
     @Lob
-    private String CONTENT;
+    private String content;
 
     //내용
     @Column
     @Lob
-    private String CONTENT1;
+    private String content1;
 
     //내용
     @Column
     @Lob
-    private String NOTE;
+    private String note;
 
     @Column(columnDefinition = "varchar(12)")
-    private String BEGINDE;
+    private String strDe;
 
     @Column(columnDefinition = "varchar(12)")
-    private String ENDDE;
+    private String endDe;
 
-    @Column(columnDefinition = "int")
-    private Long REGISTERNO;
-
-    @Column(columnDefinition = "varchar(100)")
-    private String CHARGENAME;
+    @Column(columnDefinition = "varchar(20)")
+    private String registerNo;
 
     @Column(columnDefinition = "varchar(100)")
-    private String CHARGEDEPT;
+    private String chargeName;
 
-    @Column(columnDefinition = "int")
-    private Long MODYFIERNO;
+    @Column(columnDefinition = "varchar(100)")
+    private String chargeDept;
+
+    @Column(columnDefinition = "varchar(20)")
+    private String modifierNo;
 
     @Column(columnDefinition = "varchar(8)")
-    private String EDUBEGINDE;
+    private String eduStrDe;
 
     @Column(columnDefinition = "varchar(8)")
-    private String EDUENDDE;
+    private String eduEndDe;
 
     //접수
     @Column(columnDefinition = "int")
-    private Long PEOPLECNT;
+    private Long peopleCnt;
 
 }

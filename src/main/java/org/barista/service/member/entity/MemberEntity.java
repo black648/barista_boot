@@ -2,74 +2,87 @@ package org.barista.service.member.entity;
 
 import lombok.*;
 import org.barista.framework.base.BaseEntity;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Entity
+@Entity(name="member")
 @Table(name="member")
 @ToString
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberEntity extends BaseEntity implements Serializable {
+public class MemberEntity extends BaseEntity implements UserDetails {
 
     @Id
-    @Column(columnDefinition = "int")
-    private Long MBERNO;
+    @Column(columnDefinition = "varchar(20)")
+    private String mberNo;
 
     @Column(columnDefinition = "varchar(100)")
-    private String MBERNAME;
+    private String mberName;
 
     @Column(columnDefinition = "varchar(100)")
-    private String MBERID;
+    private String mberId;
 
     @Column(columnDefinition = "varchar(100)")
-    private String PASSWORD;
+    private String password;
 
     @Column(columnDefinition = "varchar(100)")
-    private String MBERPHONE;
+    private String mberPhone;
 
     @Column(columnDefinition = "varchar(2000)")
-    private String ADDRESS1;
+    private String address1;
 
     @Column(columnDefinition = "varchar(100)")
-    private String ADDRESS2;
+    private String address2;
 
     @Column(columnDefinition = "varchar(40)")
-    private String MBERSE;
+    private String mberSe;
 
     @Column(columnDefinition = "varchar(300)")
-    private String EMAIL;
+    private String email;
 
-    @Column(columnDefinition = "varchar(50)")
-    private String SESSIONKEY;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    @Transient
+    private List<String> roles = new ArrayList<>();
 
-    @CreatedDate
-    @Column(columnDefinition = "date")
-    private LocalDateTime SESSIONLIMIT;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 
-    /*
-    MBER_NO      NUMBER(20)                  not null
-        constraint MEMBER_PK
-            primary key,
-    MBER_NAME    varchar(400)               not null,
-    MBER_ID      varchar(400)               not null,
-    PASSWORD     varchar(400)               not null,
-    MBER_PHONE   varchar(300),
-    ADDRESS1     varchar(2000),
-    ADDRESS2     varchar(2000),
-    MBER_SE      varchar(40)                not null,
-    CRE_DE       DATE,
-    UPD_DE       DATE,
-    EMAIL        varchar(300),
-    SESSIONKEY   varchar(50) default 'none' not null,
-    SESSIONLIMIT DATE
-     */
+    @Override
+    public String getUsername() {
+        return mberId;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

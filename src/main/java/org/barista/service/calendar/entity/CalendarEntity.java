@@ -15,32 +15,32 @@ public class CalendarEntity {
 
     @Id
     @Column(columnDefinition = "varchar(8)")
-    private String YYYYMMDD;
+    private String yyyymmdd;
 
     @Column(columnDefinition = "varchar(4)")
-    private String YYYY;
+    private String yyyy;
 
     @Column(columnDefinition = "varchar(2)")
-    private String MM;
+    private String mm;
 
     @Column(columnDefinition = "varchar(2)")
-    private String DD;
+    private String dd;
 
     @Column(columnDefinition = "varchar(2)")
-    private String IWWEEKS;
+    private String iwweeks;
 
     @Column(columnDefinition = "varchar(2)")
-    private String WEEKS;
+    private String weeks;
 
     @Column(columnDefinition = "varchar(10)")
-    private String DAY;
+    private String day;
 
     @Column(columnDefinition = "smallint")
-    private int DAYNUM;
+    private int dayNum;
 
     @Column(columnDefinition = "varchar(1)")
-    private String HOLIDAYYN;
+    private String holidayYn;
 
     @Column(columnDefinition = "varchar(100)")
-    private String TEXT;
+    private String text;
 }
