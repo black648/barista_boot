@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Table(name="member")
 @ToString
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

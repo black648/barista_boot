@@ -1,6 +1,9 @@
 package org.barista.framework.utils;
 
 
+import com.fasterxml.uuid.Generators;
+import org.hibernate.id.UUIDGenerator;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -419,6 +422,9 @@ public class Utils {
         byte[] encrypted = c.doFinal(str.getBytes("UTF-8"));
         String enStr = new String(Base64.getEncoder().encode(encrypted));
         return enStr;
+    }
 
+    public static String getID() {
+        return Generators.timeBasedGenerator().generate().toString().replace("-", "");
     }
 }
