@@ -2,7 +2,7 @@ package org.barista.framework.utils;
 
 public class APIResult {
     private int resultCode;
-    private String resultMsg;
+    private String resultMessage;
     private Object resultData;
 
     public APIResult() {
@@ -16,12 +16,12 @@ public class APIResult {
         this.resultCode = resultCode;
     }
 
-    public String getResultMsg() {
-        return this.resultMsg;
+    public String getResultMessage() {
+        return this.resultMessage;
     }
 
-    public void setResultMsg(String resultMsg) {
-        this.resultMsg = resultMsg;
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
     }
 
     public Object getResultData() {
@@ -33,6 +33,6 @@ public class APIResult {
     }
 
     public String toString() {
-        return "Result [resultCode=" + this.resultCode + ", resultMsg=" + this.resultMsg + ", resultData=" + this.resultData + "]";
+        return "Result [resultCode=" + this.resultCode + ", resultMessage=" + this.resultMessage + ", resultData=" + this.resultData + "]";
     }
 }

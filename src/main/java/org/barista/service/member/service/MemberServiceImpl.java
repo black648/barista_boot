@@ -2,6 +2,7 @@ package org.barista.service.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.barista.framework.utils.Utils;
 import org.barista.service.member.entity.MemberEntity;
 import org.barista.service.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,18 +21,20 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public long create (MemberEntity member) {
-        long create = memberRepository.create(member);
+//        long create = memberRepository.create(member);
+        member.setMberId(Utils.getID());
+        memberRepository.save(member);
 
-        if (create > 0) {
-            MemberEntity.builder()
-                    .mberId(member.getMberId())
-                    .password(passwordEncoder.encode(member.getPassword()))
-                    .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                    .build();
-        }
+        MemberEntity.builder()
+                .mberId(member.getMberId())
+                .password(passwordEncoder.encode(member.getPassword()))
+                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                .build();
 
-        return create;
+        return 1;
     }
+
+
     
     @Override
     public MemberEntity get(String mberId) throws UsernameNotFoundException {

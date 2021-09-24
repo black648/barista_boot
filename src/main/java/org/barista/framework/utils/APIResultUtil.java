@@ -13,17 +13,17 @@ public class APIResultUtil {
         return result;
     }
 
-    public static APIResult getAPIResult(int nErrorCode, String msg) {
+    public static APIResult getAPIResult(int nErrorCode, String message) {
         APIResult result = new APIResult();
         result.setResultCode(nErrorCode); // default
-        result.setResultMsg(msg);
+        result.setResultMessage(message);
         return result;
     }
 
-    public static APIResult getAPIResultWithMsg(Object resultData, String msg) {
+    public static APIResult getAPIResultWithMessage(Object resultData, String message) {
         APIResult result = new APIResult();
         result.setResultCode(0); // default
-        result.setResultMsg(msg);
+        result.setResultMessage(message);
         result.setResultData(resultData);
         return result;
     }

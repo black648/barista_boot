@@ -1,7 +1,7 @@
 package org.barista.service.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.barista.service.member.repository.MemberRepository;
+import org.barista.service.member.repository.MemberRepositoryImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryImpl memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
