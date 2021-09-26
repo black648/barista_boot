@@ -8,15 +8,17 @@ import org.barista.service.member.entity.QMemberEntity;
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
+import static org.barista.service.member.entity.QMemberEntity.memberEntity;
+
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
-    private final EntityManager em;
+    //    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
 //    EntityManager em = entityManagerFactory.createEntityManager();
 //    JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
-    QMemberEntity dbName = new QMemberEntity("member");
+//    QMemberEntity dbName = new QMemberEntity("member");
 
 //    public long save(MemberEntity member) {
 //        em.persist(member);
@@ -58,9 +60,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     public Optional<MemberEntity> get(String mberid) {
         return Optional.ofNullable(
                 queryFactory
-                    .selectFrom(dbName)
-                    .where(dbName.mberId.eq(mberid))
-                    .fetchOne()
+                        .selectFrom(memberEntity)
+                        .where(memberEntity.mberId.eq(mberid))
+                        .fetchOne()
         );
     }
 }
