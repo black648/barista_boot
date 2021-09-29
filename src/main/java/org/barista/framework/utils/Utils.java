@@ -442,7 +442,7 @@ public class Utils {
         long mask = radix - 1;
         long number = System.nanoTime();
         do {
-            buf[—charPos] = digits[(int) (number & mask)];
+            buf[--charPos] = digits[(int) (number & mask)];
             number >>>= shift;
         } while (number != 0);
         return new String(buf, charPos, (64 - charPos));

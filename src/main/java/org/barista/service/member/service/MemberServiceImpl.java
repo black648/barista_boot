@@ -21,7 +21,6 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public long create (MemberEntity member) {
-//        long create = memberRepository.create(member);
         member.setMberNo(Utils.getID());
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
@@ -34,8 +33,6 @@ public class MemberServiceImpl implements MemberService{
 
         return 1;
     }
-
-
 
     @Override
     public MemberEntity get(String mberId) throws UsernameNotFoundException {
