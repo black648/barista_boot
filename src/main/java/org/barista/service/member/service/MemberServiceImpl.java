@@ -20,18 +20,16 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     @Override
-    public long create (MemberEntity member) {
-        member.setMberNo(Utils.getID());
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
-        memberRepository.save(member);
+    public String create (MemberEntity member) {
 
-        MemberEntity.builder()
+        return memberRepository.save(MemberEntity.builder()
+                .mberNo(Utils.getID())
                 .mberId(member.getMberId())
                 .password(passwordEncoder.encode(member.getPassword()))
-                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build();
+                .mberSe("ROLE_USER").build()).getMberId();
 
-        return 1;
+        // 최초 가입시 USER 로 설정
+
     }
 
     @Override
