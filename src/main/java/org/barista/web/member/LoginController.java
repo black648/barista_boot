@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.barista.config.security.TokenProvider;
 import org.barista.framework.constants.CommonConstants;
+import org.barista.framework.utils.APIResult;
 import org.barista.framework.utils.APIResultUtil;
 import org.barista.framework.utils.ServiceUtil;
 import org.barista.service.member.entity.MemberEntity;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -33,13 +35,24 @@ public class LoginController {
 
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody Map<String, String> user) {
+    public APIResult login(@RequestBody Map<String, String> user) {
         MemberEntity member = ServiceUtil.getMemberService().get(user.get("mberId"));
 
         if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createToken(member);
+
+        member.setTokenKey(jwtTokenProvider.createToken(member));
+        member.setPassword(null);
+
+        Map<String, String> memberMap = new HashMap<>();
+        memberMap.put("mberId", member.getMberId());
+        memberMap.put("mberName", member.getMberName());
+        memberMap.put("email", member.getEmail());
+
+        HashMap<String, Object> responseKeyValue = new HashMap<>();
+        responseKeyValue.put("member", memberMap);
+        return APIResultUtil.getAPIResult(responseKeyValue);
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)

@@ -7,9 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -50,6 +48,9 @@ public class MemberEntity extends BaseEntity implements UserDetails {
 
     @Column(columnDefinition = "varchar(300)")
     private String email;
+
+    @Transient //컬럼생성 x
+    private String tokenKey;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
