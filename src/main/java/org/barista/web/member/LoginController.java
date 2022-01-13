@@ -49,6 +49,7 @@ public class LoginController {
         memberMap.put("mberId", member.getMberId());
         memberMap.put("mberName", member.getMberName());
         memberMap.put("email", member.getEmail());
+        memberMap.put("tokenKey", jwtTokenProvider.createToken(member));
 
         HashMap<String, Object> responseKeyValue = new HashMap<>();
         responseKeyValue.put("member", memberMap);
