@@ -41,3 +41,5 @@ SELECT get_seq('ID_SEQ');
 
 3) QueryDSL 
  * 공식문서 : https://querydsl.com/static/querydsl/latest/reference/html/ch02s03.html
+
+//https://jojoldu.tistory.com/372

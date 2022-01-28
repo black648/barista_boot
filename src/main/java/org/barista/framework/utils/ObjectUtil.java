@@ -1083,9 +1083,9 @@ public class ObjectUtil {
         return result;
     }
 
-    public static boolean isEqualText( String str1, String str2)
+    public static boolean isEqualStr( String str1, String str2)
     {
-        if( str1 == null || str2 == null) return false;
+        if( StringUtils.isEmpty(str1) || StringUtils.isEmpty(str2)) return false;
 
         if( (str1.toLowerCase()).equals( str2.toLowerCase())) return true;
         else return false;
