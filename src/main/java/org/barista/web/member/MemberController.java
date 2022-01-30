@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.barista.framework.utils.APIResultUtil;
 import org.barista.framework.utils.ServiceUtil;
-import org.barista.service.member.entity.MemberEntity;
+import org.barista.service.member.dto.MemberDto;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +21,7 @@ public class MemberController {
     @RequestMapping(value = "/getMember", method = RequestMethod.POST)
     public Object join(@RequestBody Map<String, String> paramMap) {
         System.out.println("dajklshfaskljdfhalskdf");
-        MemberEntity member = ServiceUtil.getMemberService().get(paramMap.get("mberId"));
+        MemberDto member = ServiceUtil.getMemberService().get(paramMap.get("mberId"));
 
         return APIResultUtil.getAPIResult(member);
     }
