@@ -36,4 +36,18 @@ public class MemberDto {
                 .tokenKey(tokenKey)
                 .build();
     }
+
+    public MemberEntity toMemberEntity() {
+        return MemberEntity.builder()
+                .mberNo(mberNo)
+                .mberName(mberName)
+                .mberId(mberId)
+                .mberPhone(mberPhone)
+                .address1(address1)
+                .address2(address2)
+                .mberSe(mberSe)
+                .email(email)
+                .tokenKey(tokenKey)
+                .build();
+    }
 }

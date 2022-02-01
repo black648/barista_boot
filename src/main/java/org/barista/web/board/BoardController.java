@@ -5,6 +5,7 @@ import org.barista.framework.utils.APIResult;
 import org.barista.framework.utils.APIResultUtil;
 import org.barista.framework.utils.ServiceUtil;
 import org.barista.service.board.entity.BoardEntity;
+import org.barista.service.common.dto.SearchCommonDto;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,9 +21,9 @@ import java.util.Map;
 public class BoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public APIResult getTopMenu(@RequestBody Map<String, Object> paramMap) {
+    public APIResult getTopMenu(@RequestBody SearchCommonDto searchDto) {
 
-        List<BoardEntity> list = ServiceUtil.getBoardService().getList(paramMap);
+        List<BoardEntity> list = ServiceUtil.getBoardService().getList(searchDto);
 
         HashMap<String, Object> responseKeyValue = new HashMap<>();
         responseKeyValue.put("list", list);
