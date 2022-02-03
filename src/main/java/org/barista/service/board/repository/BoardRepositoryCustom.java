@@ -1,10 +1,10 @@
 package org.barista.service.board.repository;
 
+import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
-import org.barista.service.common.dto.SearchCommonDto;
 
 import java.util.List;
 
 public interface BoardRepositoryCustom {
-    List<BoardEntity> getList(SearchCommonDto searchCommonDto);
+    List<BoardEntity> getList(BoardSearchDto searchCommonDto);
 }

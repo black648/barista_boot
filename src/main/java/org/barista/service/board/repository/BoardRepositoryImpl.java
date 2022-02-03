@@ -7,8 +7,8 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.utils.ObjectUtil;
+import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
-import org.barista.service.common.dto.SearchCommonDto;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
@@ -21,22 +21,22 @@ import static org.barista.service.board.entity.QBoardEntity.boardEntity;
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
-    public List<BoardEntity> getList(SearchCommonDto searchCommonDto) {
+    public List<BoardEntity> getList(BoardSearchDto searchDto) {
         return queryFactory.selectFrom(boardEntity)
                 .where(
-                        idEq(searchCommonDto.getId()),
-                        instanceIdEq(searchCommonDto.getInstanceId()),
-                        contentLike(searchCommonDto.getContent()),
-                        titleLike(searchCommonDto.getTitle()),
-                        registerDeTo(searchCommonDto.getRegisterDeTo()),
-                        registerDeFrom(searchCommonDto.getRegisterDeFrom()),
-                        isPublicEq(searchCommonDto.getIsPublic()),
-                        isNoticeEq(searchCommonDto.getIsNotice()),
-                        delYnEq(searchCommonDto.getDelYn())
+                        idEq(searchDto.getId()),
+                        instanceIdEq(searchDto.getInstanceId()),
+                        contentLike(searchDto.getContent()),
+                        titleLike(searchDto.getTitle()),
+                        registerDeTo(searchDto.getRegisterDeTo()),
+                        registerDeFrom(searchDto.getRegisterDeFrom()),
+                        isPublicEq(searchDto.getIsPublic()),
+                        isNoticeEq(searchDto.getIsNotice()),
+                        delYnEq(searchDto.getDelYn())
                 )
-                .orderBy(getOrderSpecifier(searchCommonDto.getSort()).stream().toArray(OrderSpecifier[]::new))
-                .offset(setPage(searchCommonDto.getPage()))
-                .limit(setPageSize(searchCommonDto.getPageSize()))
+                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .offset(setPage(searchDto.getPage()))
+                .limit(setPageSize(searchDto.getPageSize()))
                 .fetch();
     }
 
