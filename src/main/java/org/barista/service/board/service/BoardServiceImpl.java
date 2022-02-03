@@ -2,6 +2,7 @@ package org.barista.service.board.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.barista.framework.constants.ColumnConstants;
 import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
 import org.barista.service.board.repository.BoardRepository;
@@ -20,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardEntity> getList(BoardSearchDto searchDto) {
-        searchDto.setSort(Sort.by(Sort.Order.desc("registDe")));
+        searchDto.setSort(Sort.by(Sort.Order.desc(ColumnConstants.REGISTER_DE)));
         List<BoardEntity> list = boardRepository.getList(searchDto);
 
         return list;

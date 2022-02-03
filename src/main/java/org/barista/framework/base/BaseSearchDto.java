@@ -1,4 +1,4 @@
-package org.barista.service.common.dto;
+package org.barista.framework.base;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Getter
 @Setter
-public class SearchCommonDto {
+public class BaseSearchDto {
 
     private String registerDeTo;
     private String registerDeFrom;
@@ -19,3 +19,4 @@ public class SearchCommonDto {
 
     private Sort sort;
 }
+

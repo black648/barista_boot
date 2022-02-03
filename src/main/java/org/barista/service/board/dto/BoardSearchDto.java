@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.barista.service.common.dto.SearchCommonDto;
+import org.barista.framework.base.BaseSearchDto;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
-public class BoardSearchDto extends SearchCommonDto {
+public class BoardSearchDto extends BaseSearchDto {
 
     private String id;
     private String instanceId;
