@@ -3,6 +3,7 @@ package org.barista.service.common.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.barista.framework.base.BaseSpecs;
+import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.service.common.entity.CodeEntity;
 import org.barista.service.common.repository.CodeRepository;
@@ -25,17 +26,17 @@ public class CodeServiceImpl implements CodeService{
     @Override
     public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
 
-        Sort sort = Sort.by(Sort.Order.asc("level"), Sort.Order.asc("orderNo"));
+        Sort sort = Sort.by(Sort.Order.asc(ColumnConstants.LEVEL), Sort.Order.asc(ColumnConstants.ORDER_NO));
 
         List<CodeEntity> list = codeRepository.getAll(paramMap, sort);
 
-        paramMap.put("grpCd","GR002");
-        paramMap.put("level",2);
-        paramMap.put("useAble","T");
+        paramMap.put(ColumnConstants.GRP_CD, "GR002");
+        paramMap.put(ColumnConstants.LEVEL, 2);
+        paramMap.put(ColumnConstants.USE_ABLE, "T");
 
         list.stream().forEach(code -> {
-            paramMap.put("pcd",code.getCd());
-            paramMap.put("level",3);
+            paramMap.put(ColumnConstants.P_CD, code.getCd());
+            paramMap.put(ColumnConstants.LEVEL, 3);
             code.setCodeList(codeRepository.getAll(paramMap, sort));
         });
 
@@ -46,7 +47,7 @@ public class CodeServiceImpl implements CodeService{
         if (ObjectUtil.isEmpty(paramMap)) {
             paramMap = new HashMap<>();
         }
-        paramMap.put("useAble","T");
+        paramMap.put(ColumnConstants.USE_ABLE, "T");
 
         return paramMap;
     }

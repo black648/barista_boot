@@ -1,17 +1,10 @@
 package org.barista.service.board.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.barista.framework.base.BaseSearchDto;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
+@Data
 public class BoardSearchDto extends BaseSearchDto {
-
     private String id;
     private String instanceId;
     private String content;

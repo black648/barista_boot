@@ -6,5 +6,5 @@ import org.barista.service.board.entity.BoardEntity;
 import java.util.List;
 
 public interface BoardRepositoryCustom {
-    List<BoardEntity> getList(BoardSearchDto searchCommonDto);
+    List<BoardEntity> getList(BoardSearchDto searchDto);
 }

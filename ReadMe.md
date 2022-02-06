@@ -43,3 +43,6 @@ SELECT get_seq('ID_SEQ');
  * 공식문서 : https://querydsl.com/static/querydsl/latest/reference/html/ch02s03.html
 
 //https://jojoldu.tistory.com/372
+
+4) ModelMapper
+ * ModelMapper로 Entity -> Dto 변환 시 @Builder 옵션 빼야 함...
