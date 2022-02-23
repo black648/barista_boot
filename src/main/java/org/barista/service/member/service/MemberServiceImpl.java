@@ -24,10 +24,11 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public String create (MemberEntity member) {
-
         return memberRepository.save(MemberEntity.builder()
                 .mberNo(Utils.getID())
                 .mberId(member.getMberId())
+                .email(member.getEmail())
+                .mberName(member.getMberName())
                 .password(passwordEncoder.encode(member.getPassword()))
                 .mberSe("ROLE_USER").build()).getMberId();
 
@@ -43,12 +44,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDto get(String mberId) throws UsernameNotFoundException {
-        return get(getEntity(mberId));
-    }
-
-    @Override
-    public MemberDto get(MemberEntity entity) throws UsernameNotFoundException {
-        return MemberDto.getMemberDto(entity, jwtTokenProvider.createToken(entity));
+        return setDtoToEntity(getEntity(mberId));
     }
 
     @Override
@@ -58,6 +54,11 @@ public class MemberServiceImpl implements MemberService{
         if (!passwordEncoder.matches(password, memberEntity.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return get(memberEntity);
+        return setDtoToEntity(memberEntity);
     }
+
+    protected MemberDto setDtoToEntity (MemberEntity entity) {
+        return MemberDto.getMemberDto(entity, jwtTokenProvider.createToken(entity));
+    }
+
 }

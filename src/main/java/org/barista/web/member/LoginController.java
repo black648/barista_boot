@@ -6,13 +6,17 @@ import org.barista.config.security.TokenProvider;
 import org.barista.framework.constants.CommonConstants;
 import org.barista.framework.utils.APIResult;
 import org.barista.framework.utils.APIResultUtil;
+import org.barista.framework.utils.ObjectUtil;
 import org.barista.framework.utils.ServiceUtil;
 import org.barista.service.member.dto.MemberDto;
 import org.barista.service.member.entity.MemberEntity;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -55,6 +59,16 @@ public class LoginController {
         return APIResultUtil.getAPIResult("로그아웃 되었습니다.");
     }
 
+    @RequestMapping(value = "/checkId", method = RequestMethod.POST)
+    public Object checkId(@RequestBody Map<String, String> user) {
 
-    // https://webfirewood.tistory.com/115 여기 참고해서 테스트해보자
+        boolean isMember;
+        try {
+            isMember = ObjectUtil.isNotEmpty(ServiceUtil.getMemberService().get(user.get("mberId"))) ? true : false;
+        } catch (Exception e) {
+            isMember = false;
+        }
+
+        return APIResultUtil.getAPIResult(isMember);
+    }
 }

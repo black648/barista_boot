@@ -11,7 +11,5 @@ public interface MemberService {
 
     MemberDto get(String mberId) throws UsernameNotFoundException;
 
-    MemberDto get(MemberEntity entity) throws UsernameNotFoundException;
-
     MemberDto doLogin(String mberId, String password) throws UsernameNotFoundException;
 }
