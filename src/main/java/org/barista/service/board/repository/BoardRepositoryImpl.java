@@ -7,14 +7,13 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.utils.ObjectUtil;
+import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.barista.service.board.entity.QBoardEntity.boardEntity;
 
@@ -22,22 +21,22 @@ import static org.barista.service.board.entity.QBoardEntity.boardEntity;
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
-    public List<BoardEntity> getList(Map<String, Object> paramMap, Sort sort) {
+    public List<BoardEntity> getList(BoardSearchDto searchDto) {
         return queryFactory.selectFrom(boardEntity)
                 .where(
-                        idEq((String) paramMap.get("id")),
-                        instanceIdEq((String) paramMap.get("instanceId")),
-                        contentLike((String) paramMap.get("content")),
-                        titleLike((String) paramMap.get("title")),
-                        registerDeTo((String) paramMap.get("registerDeTo")),
-                        registerDeFrom((String) paramMap.get("registerDeFrom")),
-                        isPublicEq((String) paramMap.get("isPublic")),
-                        isNoticeEq((String) paramMap.get("isNotice")),
-                        delYnEq((String) paramMap.get("delYn"))
+                        idEq(searchDto.getId()),
+                        instanceIdEq(searchDto.getInstanceId()),
+                        contentLike(searchDto.getContent()),
+                        titleLike(searchDto.getTitle()),
+                        registerDeTo(searchDto.getRegisterDeTo()),
+                        registerDeFrom(searchDto.getRegisterDeFrom()),
+                        isPublicEq(searchDto.getIsPublic()),
+                        isNoticeEq(searchDto.getIsNotice()),
+                        delYnEq(searchDto.getDelYn())
                 )
-                .orderBy(getOrderSpecifier(sort).stream().toArray(OrderSpecifier[]::new))
-                .offset(setPage((String) paramMap.get("page")))
-                .limit(setPageSize((String) paramMap.get("pageSize")))
+                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .offset(setPage(searchDto.getPage()))
+                .limit(setPageSize(searchDto.getPageSize()))
                 .fetch();
     }
 

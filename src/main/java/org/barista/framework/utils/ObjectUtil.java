@@ -146,9 +146,9 @@ public class ObjectUtil {
     }
 
     public static boolean isEmpty( Object object) {
-        if ( object == null )
+        if ( object == null ) {
             return true;
-
+        }
         if ( object instanceof java.lang.String) {
             return (( String)object).length() == 0;
         }

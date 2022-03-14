@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 @Table(name="member")
 @ToString
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
