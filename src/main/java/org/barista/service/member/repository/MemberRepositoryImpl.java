@@ -9,7 +9,6 @@ import org.barista.service.member.entity.MemberEntity;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.barista.service.board.entity.QBoardEntity.boardEntity;
 import static org.barista.service.member.entity.QMemberEntity.memberEntity;
 
 @RequiredArgsConstructor

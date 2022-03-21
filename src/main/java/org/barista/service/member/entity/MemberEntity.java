@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public class MemberEntity extends BaseEntity implements UserDetails {
 
     @Id
-    @Column(columnDefinition = "varchar(20)")
+    @Column(name = "mberNo", columnDefinition = "varchar(20)")
     private String mberNo;
 
     @Column(columnDefinition = "varchar(100)")
