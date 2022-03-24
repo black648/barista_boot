@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class BoardInstanceEntity {
 
     @Id
-    @Column(columnDefinition = "varchar(50)")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(columnDefinition = "varchar(100)")
     private String name;

@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 public class QnaEntity extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long qno;
+    @Column(columnDefinition = "varchar(50)")
+    private String id;
 
     @Column(columnDefinition = "varchar(20)")
     private String registerNo;

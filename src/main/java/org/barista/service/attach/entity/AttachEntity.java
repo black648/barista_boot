@@ -43,6 +43,10 @@ public class AttachEntity extends BaseEntity {
     private String division;
 
     //모듈 그룹핑 넘버
+    @Column(columnDefinition = "varchar(50)")
+    private String divisionId;
+
+    //첨부파일 순서
     @Column(columnDefinition = "int")
     private Long grpNo;
 
