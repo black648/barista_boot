@@ -30,11 +30,30 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     QMemberEntity register = memberEntity;
     QMemberEntity modifier = memberEntity;
 
-    public List<BoardDto> getList(BoardSearchDto searchDto) {
-        return getList(searchDto, setAllSearchColumn());
+    public BoardDto get(String id) {
+        return get(id, setAllSearchColumn());
     }
 
-    public List<BoardDto> getList(BoardSearchDto searchDto, Expression<?>... expressions) {
+    public BoardDto get(String id, Expression<?>... expressions) {
+        return queryFactory.select(Projections.fields(BoardDto.class, expressions))
+                .from(boardEntity)
+                .where(
+                        idEq(id),
+                        delYnEq("N")
+                )
+                .leftJoin(boardEntity.register, register)
+                .leftJoin(boardEntity.modifier, modifier)
+                .fetchOne();
+    }
+
+    public List<BoardDto> getList(Object obj) {
+        return getList(obj, setAllSearchColumn());
+    }
+
+    public List<BoardDto> getList(Object obj, Expression<?>... expressions) {
+        BoardSearchDto searchDto = (BoardSearchDto) obj;
+        searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
+
         return queryFactory.select(Projections.fields(BoardDto.class, expressions))
                 .from(boardEntity)
                 .where(
@@ -129,28 +148,5 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 , modifier.mberName.as(ColumnConstants.MODIFIER_NAME)
                 , register.mberName.as(ColumnConstants.REGISTER_NAME)
         };
-    }
-
-    private Expression<?>[] setSearchColumn(List<String> columns) {
-        if (columns == null) {
-            return setAllSearchColumn();
-        }
-
-        Expression<?>[] expressions = new Expression[columns.size()];
-        for (int i = 0; i < columns.size(); i++) {
-            switch (columns.get(i)) {
-                case ColumnConstants.ID : expressions[i] = boardEntity.id; continue;
-                case ColumnConstants.INSTANCE_ID : expressions[i] = boardEntity.instanceId; continue;
-                case ColumnConstants.CONTENT : expressions[i] = boardEntity.content; continue;
-                case ColumnConstants.TITLE : expressions[i] = boardEntity.title; continue;
-                case ColumnConstants.IS_NOTICE : expressions[i] = boardEntity.isNotice; continue;
-                case ColumnConstants.IS_PUBLIC : expressions[i] = boardEntity.isPublic; continue;
-                case ColumnConstants.DEL_YN : expressions[i] = boardEntity.delYn; continue;
-                case ColumnConstants.REGIST_DE: expressions[i] = boardEntity.registDe; continue;
-                case ColumnConstants.MODIFY_DE:  expressions[i] = boardEntity.modifyDe; continue;
-                case ColumnConstants.READ_CNT : expressions[i] = boardEntity.readCnt; continue;
-            }
-        }
-        return expressions;
     }
 }

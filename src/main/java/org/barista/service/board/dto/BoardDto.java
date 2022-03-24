@@ -1,13 +1,10 @@
 package org.barista.service.board.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import org.barista.service.board.entity.QBoardEntity;
-
-import java.util.List;
+import org.barista.framework.base.BaseDto;
 
 @Data
-public class BoardDto {
+public class BoardDto extends BaseDto {
 
     private String id;
     private String instanceId;

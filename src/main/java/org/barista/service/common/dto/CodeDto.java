@@ -1,12 +1,12 @@
 package org.barista.service.common.dto;
 
 import lombok.Data;
-import org.barista.service.common.entity.CodeEntity;
+import org.barista.framework.base.BaseDto;
 
 import java.util.Collection;
 
 @Data
-public class CodeDto {
+public class CodeDto extends BaseDto {
     private String grpCd;
     private String cd;
     private String pcd;
@@ -24,7 +24,7 @@ public class CodeDto {
     private String userDef1;
     private String userDef2;
     private String userDef3;
-    private Collection<CodeEntity> codeList;
+    private Collection<CodeDto> codeList;
 
 //    public static CodeDto getCodeDto(CodeEntity entity) {
 //        return CodeDto.builder()

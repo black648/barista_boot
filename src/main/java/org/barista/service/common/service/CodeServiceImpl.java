@@ -2,9 +2,13 @@ package org.barista.service.common.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.barista.framework.base.BaseRepository;
+import org.barista.framework.base.BaseServiceImpl;
 import org.barista.framework.base.BaseSpecs;
 import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.ObjectUtil;
+import org.barista.service.common.dto.CodeDto;
+import org.barista.service.common.dto.CodeSearchDto;
 import org.barista.service.common.entity.CodeEntity;
 import org.barista.service.common.repository.CodeRepository;
 import org.springframework.data.domain.Sort;
@@ -19,25 +23,26 @@ import java.util.Map;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class CodeServiceImpl implements CodeService{
+public class CodeServiceImpl extends BaseServiceImpl<CodeDto> implements CodeService{
 
     private final CodeRepository codeRepository;
 
     @Override
-    public List<CodeEntity> getCodeList(Map<String, Object> paramMap) {
+    public BaseRepository getRepository() {
+        return codeRepository;
+    }
 
-        Sort sort = Sort.by(Sort.Order.asc(ColumnConstants.LEVEL), Sort.Order.asc(ColumnConstants.ORDER_NO));
+    @Override
+    public List<CodeDto> getCodeList(CodeSearchDto searchDto) {
 
-        List<CodeEntity> list = codeRepository.getAll(paramMap, sort);
+        searchDto.setSort(Sort.by(Sort.Order.asc(ColumnConstants.LEVEL)
+                , Sort.Order.asc(ColumnConstants.ORDER_NO)));
 
-        paramMap.put(ColumnConstants.GRP_CD, "GR002");
-        paramMap.put(ColumnConstants.LEVEL, 2);
-        paramMap.put(ColumnConstants.USE_ABLE, "T");
-
+        List<CodeDto> list = codeRepository.getList(searchDto);
         list.stream().forEach(code -> {
-            paramMap.put(ColumnConstants.P_CD, code.getCd());
-            paramMap.put(ColumnConstants.LEVEL, 3);
-            code.setCodeList(codeRepository.getAll(paramMap, sort));
+            searchDto.setPcd(code.getCd());
+            searchDto.setLevel(3);
+            code.setCodeList(codeRepository.getList(searchDto));
         });
 
         return list;

@@ -1,12 +1,16 @@
 package org.barista.service.common.repository;
 
 
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.barista.service.common.dto.CodeDto;
+import org.barista.service.common.dto.CodeSearchDto;
 import org.barista.service.common.entity.CodeEntity;
 import org.springframework.data.domain.Sort;
 
@@ -19,6 +23,41 @@ import static org.barista.service.common.entity.QCodeEntity.codeEntity;
 @RequiredArgsConstructor
 public class CodeRepositoryImpl implements CodeRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public CodeDto get(String id) {
+        return get(id, setAllSearchColumn());
+    }
+
+    @Override
+    public CodeDto get(String id, Expression<?>... expressions) {
+        return queryFactory.select(Projections.fields(CodeDto.class, expressions))
+                .from(codeEntity)
+                .where( cdEq((String) id), useableEq())
+                .fetchOne();
+    }
+
+    @Override
+    public List<CodeDto> getList(Object obj) {
+        return getList(obj, setAllSearchColumn());
+    }
+
+    @Override
+    public List<CodeDto> getList(Object obj, Expression<?>... expressions) {
+        CodeSearchDto searchDto = (CodeSearchDto) obj;
+
+        return queryFactory.select(Projections.fields(CodeDto.class, expressions))
+                .from(codeEntity)
+                .where(
+                        grpCdEq(searchDto.getGrpCd()),
+                        cdEq(searchDto.getCd()),
+                        pcdEq(searchDto.getPcd()),
+                        levelEq(searchDto.getLevel()),
+                        useableEq()
+                )
+                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .fetch();
+    }
 
     public List<CodeEntity> getAll(Map<String, Object> paramMap, Sort sort) {
         return queryFactory.selectFrom(codeEntity)
@@ -65,5 +104,27 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
             orders.add(new OrderSpecifier(direction, orderByExpression.get(prop)));
         });
         return orders;
+    }
+
+    private Expression<?>[] setAllSearchColumn() {
+        return new Expression[] {
+                  codeEntity.grpCd
+                , codeEntity.cd
+                , codeEntity.pcd
+                , codeEntity.level
+                , codeEntity.name
+                , codeEntity.dscr
+                , codeEntity.useAble
+                , codeEntity.orderNo
+                , codeEntity.strDe
+                , codeEntity.endDe
+                , codeEntity.registerNo
+                , codeEntity.modifierNo
+                , codeEntity.mappingCd
+                , codeEntity.mappingName
+                , codeEntity.userDef1
+                , codeEntity.userDef2
+                , codeEntity.userDef3
+        };
     }
 }
