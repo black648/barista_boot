@@ -1,6 +1,10 @@
 package org.barista.service.board.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
+import org.barista.service.board.entity.QBoardEntity;
+
+import java.util.List;
 
 @Data
 public class BoardDto {
@@ -13,21 +17,7 @@ public class BoardDto {
     private String isNotice;
     private String delYn;
 
-
-//    public static BoardDto getBoardDto (BoardEntity entity) {
-//        return BoardDto.builder()
-//                .id(entity.getId())
-//                .instanceId(entity.getInstanceId())
-//                .content(entity.getContent())
-//                .title(entity.getTitle())
-//                .isPublic(entity.getIsPublic())
-//                .isNotice(entity.getIsNotice())
-//                .delYn(entity.getDelYn())
-//                .build();
-//    }
-//
-//    public static List<BoardDto> getBoardDtoList (List<BoardEntity> list) {
-//        return list.stream().map(BoardDto::getBoardDto).collect(Collectors.toList());
-//    }
+    private String registerName;
+    private String modifierName;
 
 }

@@ -45,6 +45,7 @@ public class LoginController {
 
         HashMap<String, Object> responseKeyValue = new HashMap<>();
         responseKeyValue.put("member", member);
+
         return APIResultUtil.getAPIResult(responseKeyValue);
     }
 
@@ -53,6 +54,7 @@ public class LoginController {
         String token = jwtTokenProvider.resolveToken(request);
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(token, CommonConstants.CONST_LOGOUT); // redis set 명령어
+
         MemberEntity member = (MemberEntity) jwtTokenProvider.getAuthentication(token).getPrincipal();
         log.info("로그아웃 유저 아이디 : '{}' , 유저 이름 : '{}'", member.getMberId());
 
@@ -61,7 +63,6 @@ public class LoginController {
 
     @RequestMapping(value = "/checkId", method = RequestMethod.POST)
     public Object checkId(@RequestBody Map<String, String> user) {
-
         boolean isMember;
         try {
             isMember = ObjectUtil.isNotEmpty(ServiceUtil.getMemberService().get(user.get("mberId"))) ? true : false;

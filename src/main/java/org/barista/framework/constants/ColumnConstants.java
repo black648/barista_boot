@@ -10,6 +10,9 @@ public class ColumnConstants {
     public static final String IS_PUBLIC = "isPublic";
     public static final String IS_NOTICE = "isNotice";
     public static final String DEL_YN = "delYn";
+    public static final String REGISTER_NAME = "registerName";
+    public static final String MODIFIER_NAME = "modifierName";
+    public static final String READ_CNT = "readCnt";
 
     //Code
     public static final String GRP_CD = "grpCd";

@@ -2,6 +2,7 @@ package org.barista.service.board.entity;
 
 import lombok.*;
 import org.barista.framework.base.BaseEntity;
+import org.barista.service.member.entity.MemberEntity;
 
 import javax.persistence.*;
 
@@ -31,21 +32,13 @@ public class BoardEntity extends BaseEntity {
     @Lob
     private String content;
 
-    //등록자
-    @Column(columnDefinition = "varchar(20)")
-    private String registerNo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="registerNo")
+    private MemberEntity register;
 
-    //등록자명
-    @Column(columnDefinition = "varchar(100)")
-    private String registerName;
-
-    //수정자
-    @Column(columnDefinition = "varchar(20)")
-    private String modifierNo;
-
-    //수정자명
-    @Column(columnDefinition = "varchar(100)")
-    private String modifierName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="modifierNo")
+    private MemberEntity modifier;
 
     //공지여부
     @Column(columnDefinition = "varchar(1)")
