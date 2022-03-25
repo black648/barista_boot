@@ -20,7 +20,7 @@ import java.util.List;
 public class BoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public APIResult getTopMenu(@RequestBody BoardSearchDto searchDto) {
+    public APIResult getList(@RequestBody BoardSearchDto searchDto) {
 
         List<BoardDto> list = ServiceUtil.getBoardService().getList(searchDto);
 
@@ -29,4 +29,14 @@ public class BoardController {
 
         return APIResultUtil.getAPIResult(responseKeyValue);
     }
+
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public APIResult getView(@RequestBody BoardSearchDto searchDto) {
+
+        HashMap<String, Object> responseKeyValue = new HashMap<>();
+        responseKeyValue.put("board", ServiceUtil.getBoardService().get(searchDto.getId()));
+
+        return APIResultUtil.getAPIResult(responseKeyValue);
+    }
+
 }
