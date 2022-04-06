@@ -13,20 +13,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl extends BaseServiceImpl<BoardDto> implements BoardService {
-
-
     private final BoardRepository boardRepository;
 
     @Override
     public BaseRepository getRepository() {
         return boardRepository;
     }
-
-//    @Override
-//    public List<BoardDto> getList(BoardSearchDto searchDto) {
-//        searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
-//        return boardRepository.getList(searchDto);
-//    }
-
 
 }

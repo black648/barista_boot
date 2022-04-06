@@ -20,15 +20,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.barista.service.board.entity.QBoardEntity.boardEntity;
-import static org.barista.service.member.entity.QMemberEntity.memberEntity;
-
 @RequiredArgsConstructor
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
-    QMemberEntity register = memberEntity;
-    QMemberEntity modifier = memberEntity;
+    QMemberEntity register = Q_MEMBER_ENTITY;
+    QMemberEntity modifier = Q_MEMBER_ENTITY;
 
     public BoardDto get(String id) {
         return get(id, setAllSearchColumn());
@@ -36,13 +33,13 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     public BoardDto get(String id, Expression<?>... expressions) {
         return queryFactory.select(Projections.fields(BoardDto.class, expressions))
-                .from(boardEntity)
+                .from(Q_BOARD_ENTITY)
                 .where(
                         idEq(id),
                         delYnEq("N")
                 )
-                .leftJoin(boardEntity.register, register)
-                .leftJoin(boardEntity.modifier, modifier)
+                .leftJoin(Q_BOARD_ENTITY.register, register)
+                .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
                 .fetchOne();
     }
 
@@ -55,7 +52,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
 
         return queryFactory.select(Projections.fields(BoardDto.class, expressions))
-                .from(boardEntity)
+                .from(Q_BOARD_ENTITY)
                 .where(
                         idEq(searchDto.getId()),
                         instanceIdEq(searchDto.getInstanceId()),
@@ -67,8 +64,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                         isNoticeEq(searchDto.getIsNotice()),
                         delYnEq(searchDto.getDelYn())
                 )
-                .leftJoin(boardEntity.register, register)
-                .leftJoin(boardEntity.modifier, modifier)
+                .leftJoin(Q_BOARD_ENTITY.register, register)
+                .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
                 .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
                 .offset(setPage(searchDto.getPage()))
                 .limit(setPageSize(searchDto.getPageSize()))
@@ -77,39 +74,39 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     // 조건부
     private BooleanExpression idEq(String id) {
-        return id != null ? boardEntity.id.eq(id) : null;
+        return id != null ? Q_BOARD_ENTITY.id.eq(id) : null;
     }
 
     private BooleanExpression instanceIdEq(String instanceId) {
-        return instanceId != null ? boardEntity.instanceId.eq(instanceId) : null;
+        return instanceId != null ? Q_BOARD_ENTITY.instanceId.eq(instanceId) : null;
     }
     //    검색 영역
     private BooleanExpression contentLike(String content) {
-        return content != null ? boardEntity.content.like(content) : null;
+        return content != null ? Q_BOARD_ENTITY.content.like(content) : null;
     }
 
     private BooleanExpression titleLike(String title) {
-        return title != null ? boardEntity.title.like(title) : null;
+        return title != null ? Q_BOARD_ENTITY.title.like(title) : null;
     }
 
     private BooleanExpression registerDeTo(String registerDeTo) {
-        return ObjectUtil.isNotEmpty(registerDeTo) ? boardEntity.registDe.after(LocalDateTime.parse(registerDeTo)) : null;
+        return ObjectUtil.isNotEmpty(registerDeTo) ? Q_BOARD_ENTITY.registDe.after(LocalDateTime.parse(registerDeTo)) : null;
     }
 
     private BooleanExpression registerDeFrom(String registerDeFrom) {
-        return ObjectUtil.isNotEmpty(registerDeFrom) ? boardEntity.registDe.before(LocalDateTime.parse(registerDeFrom)) : null;
+        return ObjectUtil.isNotEmpty(registerDeFrom) ? Q_BOARD_ENTITY.registDe.before(LocalDateTime.parse(registerDeFrom)) : null;
     }
 
     private BooleanExpression isPublicEq(String isPublic) {
-        return isPublic != null ? boardEntity.isPublic.eq(isPublic) : null;
+        return isPublic != null ? Q_BOARD_ENTITY.isPublic.eq(isPublic) : null;
     }
 
     private BooleanExpression isNoticeEq(String isNotice) {
-        return isNotice != null ? boardEntity.isNotice.eq(isNotice) : null;
+        return isNotice != null ? Q_BOARD_ENTITY.isNotice.eq(isNotice) : null;
     }
 
     private BooleanExpression delYnEq(String delYn) {
-        return delYn != null ? boardEntity.delYn.eq(delYn) : null;
+        return delYn != null ? Q_BOARD_ENTITY.delYn.eq(delYn) : null;
     }
 
     private int setPage(String page) {
@@ -135,16 +132,16 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     private Expression<?>[] setAllSearchColumn() {
         return new Expression[] {
-                boardEntity.id
-                , boardEntity.instanceId
-                , boardEntity.content
-                , boardEntity.title
-                , boardEntity.isNotice
-                , boardEntity.isPublic
-                , boardEntity.delYn
-                , boardEntity.registDe
-                , boardEntity.modifyDe
-                , boardEntity.readCnt
+                Q_BOARD_ENTITY.id
+                , Q_BOARD_ENTITY.instanceId
+                , Q_BOARD_ENTITY.content
+                , Q_BOARD_ENTITY.title
+                , Q_BOARD_ENTITY.isNotice
+                , Q_BOARD_ENTITY.isPublic
+                , Q_BOARD_ENTITY.delYn
+                , Q_BOARD_ENTITY.registDe
+                , Q_BOARD_ENTITY.modifyDe
+                , Q_BOARD_ENTITY.readCnt
                 , modifier.mberName.as(ColumnConstants.MODIFIER_NAME)
                 , register.mberName.as(ColumnConstants.REGISTER_NAME)
         };
