@@ -6,4 +6,5 @@ import org.barista.service.board.dto.BoardDto;
 public interface BoardRepositoryCustom extends BaseRepository<BoardDto> {
 //    List<BoardDto> getList(BoardSearchDto searchDto);
 //    List<BoardDto> getList(BoardSearchDto searchDto, Expression<?>... expressions);
+    void update();
 }

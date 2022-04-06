@@ -20,4 +20,8 @@ public class BoardServiceImpl extends BaseServiceImpl<BoardDto> implements Board
         return boardRepository;
     }
 
+    public void update() {
+        boardRepository.update();
+    }
+
 }

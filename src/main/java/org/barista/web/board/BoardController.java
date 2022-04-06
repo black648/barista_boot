@@ -39,4 +39,13 @@ public class BoardController {
         return APIResultUtil.getAPIResult(responseKeyValue);
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public APIResult update(@RequestBody BoardSearchDto searchDto) {
+
+        ServiceUtil.getBoardService().update();
+        System.out.println("aksdjhfkalsdhfkljsadfhklja");
+
+        return APIResultUtil.getAPIResult();
+    }
+
 }

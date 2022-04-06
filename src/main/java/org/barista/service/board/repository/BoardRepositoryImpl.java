@@ -7,14 +7,17 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.service.board.dto.BoardDto;
 import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
+import org.barista.service.board.entity.QBoardEntity;
 import org.barista.service.member.entity.QMemberEntity;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -70,6 +73,16 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 .offset(setPage(searchDto.getPage()))
                 .limit(setPageSize(searchDto.getPageSize()))
                 .fetch();
+    }
+
+    @Transactional
+    public void update() {
+        JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));
+        query.set(Q_BOARD_ENTITY.content, "내용12343");
+        query.set(Q_BOARD_ENTITY.title, "제목123");
+        query.execute();
+
+
     }
 
     // 조건부
