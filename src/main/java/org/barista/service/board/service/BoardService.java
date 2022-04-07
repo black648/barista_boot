@@ -6,5 +6,6 @@ import org.barista.service.board.dto.BoardDto;
 public interface BoardService extends BaseService<BoardDto> {
 
     void update();
+    void saveD();
 
 }

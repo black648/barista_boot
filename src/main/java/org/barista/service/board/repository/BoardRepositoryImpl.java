@@ -6,22 +6,26 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.jpa.impl.JPAInsertClause;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.ObjectUtil;
+import org.barista.framework.utils.Utils;
 import org.barista.service.board.dto.BoardDto;
 import org.barista.service.board.dto.BoardSearchDto;
 import org.barista.service.board.entity.BoardEntity;
-import org.barista.service.board.entity.QBoardEntity;
 import org.barista.service.member.entity.QMemberEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
@@ -76,13 +80,19 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     }
 
     @Transactional
-    public void update() {
+    public void update(Map<String, StringPath> paramMap) {
         JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));
-        query.set(Q_BOARD_ENTITY.content, "내용12343");
-        query.set(Q_BOARD_ENTITY.title, "제목123");
+        paramMap.forEach((key, value) -> query.set(value, key));
         query.execute();
+    }
 
-
+    //Method threw 'java.lang.NullPointerException' exception. Cannot evaluate com.querydsl.jpa.impl.JPAInsertClause.toString()
+    @Transactional
+    public void saveD() {
+        JPAInsertClause query = queryFactory.insert(Q_BOARD_ENTITY)
+            .columns(Q_BOARD_ENTITY.id, Q_BOARD_ENTITY.title, Q_BOARD_ENTITY.content )
+                .values(Utils.getID(), "타이틀이당", "내용이당");
+        query.execute();
     }
 
     // 조건부
@@ -145,7 +155,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     private Expression<?>[] setAllSearchColumn() {
         return new Expression[] {
-                Q_BOARD_ENTITY.id
+                  Q_BOARD_ENTITY.id
                 , Q_BOARD_ENTITY.instanceId
                 , Q_BOARD_ENTITY.content
                 , Q_BOARD_ENTITY.title
