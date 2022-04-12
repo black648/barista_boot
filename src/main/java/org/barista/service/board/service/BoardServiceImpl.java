@@ -23,11 +23,11 @@ public class BoardServiceImpl extends BaseServiceImpl<BoardDto> implements Board
     }
 
     public void update() {
-        Map<String, StringPath> map = new HashMap<>();
-        map.put("내용122", QBoardEntity.boardEntity.content);
-        map.put("제목12222222", QBoardEntity.boardEntity.title);
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", "내용이에요");
+        map.put("title", "제목입니당");
 
-        boardRepository.update(map);
+        boardRepository.update("", map);
     }
 
     public void saveD() {

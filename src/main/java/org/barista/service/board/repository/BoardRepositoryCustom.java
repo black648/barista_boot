@@ -9,6 +9,6 @@ import java.util.Map;
 public interface BoardRepositoryCustom extends BaseRepository<BoardDto> {
 //    List<BoardDto> getList(BoardSearchDto searchDto);
 //    List<BoardDto> getList(BoardSearchDto searchDto, Expression<?>... expressions);
-    void update(Map<String, StringPath> paramMap);
+    void update(String UID, Map<String, Object> paramMap);
     void saveD();
 }

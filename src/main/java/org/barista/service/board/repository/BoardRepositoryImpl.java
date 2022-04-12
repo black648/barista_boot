@@ -6,11 +6,11 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
-import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAInsertClause;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
+import org.barista.framework.base.BaseMap;
 import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.framework.utils.Utils;
@@ -23,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
+
     private final JPAQueryFactory queryFactory;
+    BaseMap<BoardEntity> baseMap = new BaseMap<>(BoardEntity.class, "boardEntity");
 
     QMemberEntity register = Q_MEMBER_ENTITY;
     QMemberEntity modifier = Q_MEMBER_ENTITY;
@@ -80,9 +81,9 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     }
 
     @Transactional
-    public void update(Map<String, StringPath> paramMap) {
+    public void update(String UID, Map<String, Object> paramMap) {
         JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));
-        paramMap.forEach((key, value) -> query.set(value, key));
+        baseMap.setQMap(paramMap).forEach((key, value) -> query.set(key, value));
         query.execute();
     }
 
