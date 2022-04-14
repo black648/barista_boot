@@ -25,21 +25,11 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public CodeDto get(String id) {
-        return get(id, setAllSearchColumn());
-    }
-
-    @Override
     public CodeDto get(String id, Expression<?>... expressions) {
         return queryFactory.select(Projections.fields(CodeDto.class, expressions))
                 .from(codeEntity)
                 .where( cdEq((String) id), useableEq())
                 .fetchOne();
-    }
-
-    @Override
-    public List<CodeDto> getList(Object obj) {
-        return getList(obj, setAllSearchColumn());
     }
 
     @Override
