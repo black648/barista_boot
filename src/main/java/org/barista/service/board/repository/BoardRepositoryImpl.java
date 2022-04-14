@@ -35,10 +35,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     QMemberEntity register = Q_MEMBER_ENTITY;
     QMemberEntity modifier = Q_MEMBER_ENTITY;
 
-    public BoardDto get(String id) {
-        return get(id, setAllSearchColumn());
-    }
-
     public BoardDto get(String id, Expression<?>... expressions) {
         return queryFactory.select(Projections.fields(BoardDto.class, expressions))
                 .from(Q_BOARD_ENTITY)
@@ -49,10 +45,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 .leftJoin(Q_BOARD_ENTITY.register, register)
                 .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
                 .fetchOne();
-    }
-
-    public List<BoardDto> getList(Object obj) {
-        return getList(obj, setAllSearchColumn());
     }
 
     public List<BoardDto> getList(Object obj, Expression<?>... expressions) {
