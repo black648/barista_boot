@@ -36,7 +36,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     QMemberEntity modifier = Q_MEMBER_ENTITY;
 
     public BoardDto get(String id, Expression<?>... expressions) {
-        return queryFactory.select(Projections.fields(BoardDto.class, expressions))
+        return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
                 .from(Q_BOARD_ENTITY)
                 .where(
                         idEq(id),
@@ -51,7 +51,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         BoardSearchDto searchDto = (BoardSearchDto) obj;
         searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
 
-        return queryFactory.select(Projections.fields(BoardDto.class, expressions))
+        return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
                 .from(Q_BOARD_ENTITY)
                 .where(
                         idEq(searchDto.getId()),
@@ -146,9 +146,9 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         return orders;
     }
 
-    private Expression<?>[] setAllSearchColumn() {
-        return new Expression[] {
-                  Q_BOARD_ENTITY.id
+    private Expression<?>[] setSearchColumns(Expression<?>... expressions) {
+        return expressions.length == 0 ? new Expression[] {
+                Q_BOARD_ENTITY.id
                 , Q_BOARD_ENTITY.instanceId
                 , Q_BOARD_ENTITY.content
                 , Q_BOARD_ENTITY.title
@@ -160,6 +160,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 , Q_BOARD_ENTITY.readCnt
                 , modifier.mberName.as(ColumnConstants.MODIFIER_NAME)
                 , register.mberName.as(ColumnConstants.REGISTER_NAME)
-        };
+        } : expressions;
     }
 }

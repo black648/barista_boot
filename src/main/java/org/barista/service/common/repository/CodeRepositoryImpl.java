@@ -26,7 +26,7 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
 
     @Override
     public CodeDto get(String id, Expression<?>... expressions) {
-        return queryFactory.select(Projections.fields(CodeDto.class, expressions))
+        return queryFactory.select(Projections.fields(CodeDto.class, setSearchColumns(expressions)))
                 .from(codeEntity)
                 .where( cdEq((String) id), useableEq())
                 .fetchOne();
@@ -36,7 +36,7 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
     public List<CodeDto> getList(Object obj, Expression<?>... expressions) {
         CodeSearchDto searchDto = (CodeSearchDto) obj;
 
-        return queryFactory.select(Projections.fields(CodeDto.class, expressions))
+        return queryFactory.select(Projections.fields(CodeDto.class, setSearchColumns(expressions)))
                 .from(codeEntity)
                 .where(
                         grpCdEq(searchDto.getGrpCd()),
@@ -96,8 +96,8 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
         return orders;
     }
 
-    private Expression<?>[] setAllSearchColumn() {
-        return new Expression[] {
+    private Expression<?>[] setSearchColumns(Expression<?>... expressions) {
+        return expressions.length == 0 ? new Expression[] {
                   codeEntity.grpCd
                 , codeEntity.cd
                 , codeEntity.pcd
@@ -115,6 +115,6 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
                 , codeEntity.userDef1
                 , codeEntity.userDef2
                 , codeEntity.userDef3
-        };
+        } : expressions;
     }
 }
