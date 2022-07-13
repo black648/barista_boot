@@ -13,6 +13,7 @@ public class ColumnConstants {
     public static final String REGISTER_NAME = "registerName";
     public static final String MODIFIER_NAME = "modifierName";
     public static final String READ_CNT = "readCnt";
+    public static final String CODE_NAME = "codeName";
 
     //Code
     public static final String GRP_CD = "grpCd";

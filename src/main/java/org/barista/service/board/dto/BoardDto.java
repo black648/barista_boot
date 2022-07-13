@@ -13,6 +13,7 @@ public class BoardDto extends BaseDto {
     private String isPublic;
     private String isNotice;
     private String delYn;
+    private String codeName;
 
     private String registerName;
     private String modifierName;

@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.barista.config.security.TokenProvider;
+import org.barista.framework.base.BaseDto;
 import org.barista.service.member.entity.MemberEntity;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
-public class MemberDto {
+public class MemberDto extends BaseDto {
 
     private String mberNo;
     private String mberName;

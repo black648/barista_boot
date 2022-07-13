@@ -56,17 +56,17 @@ public class BoardEntity extends BaseEntity {
     @Column(columnDefinition = "int")
     private Long readCnt;
 
-    //예비필드1
-    @Column(columnDefinition = "varchar(100)")
-    private String etc1;
+    //분류코드
+    @Column(columnDefinition = "varchar(20)")
+    private String codeId;
 
-    //예비필드2
-    @Column(columnDefinition = "varchar(100)")
-    private String etc2;
+    //게시판타입
+    @Column(columnDefinition = "varchar(10)")
+    private String boardType;
 
     //예비필드3
     @Column(columnDefinition = "varchar(100)")
-    private String etc3;
+    private String etc;
 
     //파일 그룹핑넘버
     @Column(columnDefinition = "varchar(20)")
