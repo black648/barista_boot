@@ -48,4 +48,13 @@ public class BoardController {
         return APIResultUtil.getAPIResult();
     }
 
+//    @RequestMapping(value = "/save", method = RequestMethod.POST)
+//    public APIResult save(@RequestBody BoardDto dto) {
+//
+//        ServiceUtil.getBoardService().saveD(dto);
+//        System.out.println("aksdjhfkalsdhfkljsadfhklja");
+//
+//        return APIResultUtil.getAPIResult();
+//    }
+
 }
