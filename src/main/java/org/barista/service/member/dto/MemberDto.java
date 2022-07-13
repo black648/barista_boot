@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.barista.config.security.TokenProvider;
 import org.barista.framework.base.BaseDto;
 import org.barista.service.member.entity.MemberEntity;
 
