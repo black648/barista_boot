@@ -43,7 +43,7 @@ public class BoardController {
     public APIResult update(@RequestBody BoardSearchDto searchDto) {
 
         ServiceUtil.getBoardService().update();
-        System.out.println("aksdjhfkalsdhfkljsadfhklja");
+        System.out.println("aksdjhfkalsdhfkljsadfhkljsdfa");
 
         return APIResultUtil.getAPIResult();
     }
