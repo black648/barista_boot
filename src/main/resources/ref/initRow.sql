@@ -40,5 +40,8 @@ INSERT INTO barista.code (cd, grpcd, modifyde, registde, dscr, name, endde, leve
 INSERT INTO barista.boardinstance (id, name) VALUES ('1', '알림마당');
 INSERT INTO barista.boardinstance (id, name) VALUES ('2', '공지사항');
 
+-- Test Data
 insert into barista.board (id, modifyDe, registDe, content, delYn, fileGrpNo, instanceId, isNotice, isPublic, modifierNo, readCnt, registerNo, title, boardType, codeId, etc) values ('12398sdwhasdfljkfdsa', '2021-07-19', '2021-07-19', '내용', 'N', null, '1', 'N', 'Y', 'Hi87xq7u', 0, 'Hi87xq7u', '알림마다아아아아앙', null, 'S010103', null);
 insert into barista.board (id, modifyDe, registDe, content, delYn, fileGrpNo, instanceId, isNotice, isPublic, modifierNo, readCnt, registerNo, title, boardType, codeId, etc) values ('123ljkfdsa', '2021-07-19', '2021-07-19', '내용', 'N', null, '2', 'N', 'Y', 'Hi87xq7u', 0, 'Hi87xq7u', '공지사하아아아앙', null, 'S010101', null);
+INSERT INTO barista.member (mberNo, modifyDe, registDe, address1, address2, email, mberId, mberName, mberPhone, mberSe, password) VALUES ('Hhd7qpEs', null, null, null, null, 'black648', 'black648', '사용자1', null, 'ROLE_USER', '{bcrypt}$2a$10$cXswIQfOjYuQCk2ybvUGEu73rnLZpRMm3.MVTnlvGzWq8/flGC0FC');
+INSERT INTO barista.member (mberNo, modifyDe, registDe, address1, address2, email, mberId, mberName, mberPhone, mberSe, password) VALUES ('Hi87xq7u', null, null, null, null, 'admin', 'admin', '관리자', null, 'ROLE_USER', '{bcrypt}$2a$10$ZJzQuOwxoLagMXd35VILV.rpPbAHK43Pt8XIpnxEfZ7iOjoq5RPRW');
