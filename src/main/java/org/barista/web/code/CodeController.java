@@ -29,9 +29,6 @@ public class CodeController {
         searchDto.setLevel(2);
         searchDto.setUseAble("T");
 
-        HashMap<String, Object> responseKeyValue = new HashMap<>();
-        responseKeyValue.put(CommonConstants.CONST_LIST, ServiceUtil.getCodeService().getCodeList(searchDto));
-
-        return APIResultUtil.getAPIResult(responseKeyValue);
+        return APIResultUtil.getAPIResult(Map.of(CommonConstants.CONST_LIST, ServiceUtil.getCodeService().getCodeList(searchDto)));
     }
 }

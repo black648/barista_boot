@@ -40,11 +40,10 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
 
         JPAQuery select = getListSQL(obj, expressions);
 
-        Map<String, Object> listMap = new HashMap<>();
-        listMap.put(CommonConstants.CONST_LIST, select.fetch());
-        listMap.put(CommonConstants.CONST_LIST_COUNT, select.fetchCount());
-
-        return listMap;
+        return Map.of(
+                CommonConstants.CONST_LIST, select.fetch(),
+                CommonConstants.CONST_LIST_COUNT, select.fetchCount()
+        );
     }
 
 
