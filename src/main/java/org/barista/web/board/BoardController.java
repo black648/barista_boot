@@ -20,12 +20,7 @@ public class BoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public APIResult getList(@RequestBody BoardSearchDto searchDto) {
-
-        HashMap<String, Object> responseKeyValue = new HashMap<>();
-        responseKeyValue.put(CommonConstants.CONST_LIST, ServiceUtil.getBoardService().getList(searchDto));
-        responseKeyValue.put(CommonConstants.CONST_LIST_COUNT, ServiceUtil.getBoardService().getListCount(searchDto));
-
-        return APIResultUtil.getAPIResult(responseKeyValue);
+        return APIResultUtil.getAPIResult(ServiceUtil.getBoardService().getList(searchDto));
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.POST)

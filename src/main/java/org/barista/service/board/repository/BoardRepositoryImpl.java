@@ -5,11 +5,13 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAInsertClause;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.base.BaseMap;
 import org.barista.framework.constants.ColumnConstants;
+import org.barista.framework.constants.CommonConstants;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.framework.utils.Utils;
 import org.barista.service.board.dto.BoardDto;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +48,42 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 .fetchOne();
     }
 
-    public List<BoardDto> getList(Object obj, Expression<?>... expressions) {
+    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
+        BoardSearchDto searchDto = (BoardSearchDto) obj;
+        searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
+
+        JPAQuery select = getListSQL(obj, expressions);
+
+        Map<String, Object> listMap = new HashMap<>();
+        listMap.put(CommonConstants.CONST_LIST, select.fetch());
+        listMap.put(CommonConstants.CONST_LIST_COUNT, select.fetchCount());
+
+        return listMap;
+    }
+
+    public List<BoardDto> getOnlyList(Object obj, Expression<?>... expressions) {
+        return getListSQL(obj, expressions).fetch();
+    }
+
+
+
+    @Transactional
+    public void update(String UID, Map<String, Object> paramMap) {
+        JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));
+        baseMap.setQMap(paramMap).forEach((key, value) -> query.set(key, value));
+        query.execute();
+    }
+
+    //Method threw 'java.lang.NullPointerException' exception. Cannot evaluate com.querydsl.jpa.impl.JPAInsertClause.toString()
+    @Transactional
+    public void saveD() {
+        JPAInsertClause query = queryFactory.insert(Q_BOARD_ENTITY)
+            .columns(Q_BOARD_ENTITY.id, Q_BOARD_ENTITY.title, Q_BOARD_ENTITY.content )
+                .values(Utils.getID(), "타이틀이당", "내용이당");
+        query.execute();
+    }
+
+    private JPAQuery getListSQL (Object obj, Expression<?>... expressions) {
         BoardSearchDto searchDto = (BoardSearchDto) obj;
         searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
 
@@ -66,48 +104,9 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
                 .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
                 .offset(setPage(searchDto.getPage()))
-                .limit(setPageSize(searchDto.getPageSize()))
-                .fetch();
+                .limit(setPageSize(searchDto.getPageSize()));
     }
 
-    public long getListCount(Object obj, Expression<?>... expressions) {
-        BoardSearchDto searchDto = (BoardSearchDto) obj;
-        return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
-                .from(Q_BOARD_ENTITY)
-                .where(
-                        idEq(searchDto.getId()),
-                        instanceIdEq(searchDto.getInstanceId()),
-                        contentLike(searchDto.getContent()),
-                        titleLike(searchDto.getTitle()),
-                        registerDeTo(searchDto.getRegisterDeTo()),
-                        registerDeFrom(searchDto.getRegisterDeFrom()),
-                        isPublicEq(searchDto.getIsPublic()),
-                        isNoticeEq(searchDto.getIsNotice()),
-                        delYnEq(searchDto.getDelYn())
-                )
-                .leftJoin(Q_BOARD_ENTITY.register, register)
-                .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
-                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
-                .offset(setPage(searchDto.getPage()))
-                .limit(setPageSize(searchDto.getPageSize()))
-                .fetchCount();
-    }
-
-    @Transactional
-    public void update(String UID, Map<String, Object> paramMap) {
-        JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));
-        baseMap.setQMap(paramMap).forEach((key, value) -> query.set(key, value));
-        query.execute();
-    }
-
-    //Method threw 'java.lang.NullPointerException' exception. Cannot evaluate com.querydsl.jpa.impl.JPAInsertClause.toString()
-    @Transactional
-    public void saveD() {
-        JPAInsertClause query = queryFactory.insert(Q_BOARD_ENTITY)
-            .columns(Q_BOARD_ENTITY.id, Q_BOARD_ENTITY.title, Q_BOARD_ENTITY.content )
-                .values(Utils.getID(), "타이틀이당", "내용이당");
-        query.execute();
-    }
 
     // 조건부
     private BooleanExpression idEq(String id) {

@@ -1,5 +1,6 @@
 package org.barista.service.common.repository;
 
+import com.querydsl.core.types.Expression;
 import org.barista.framework.base.BaseRepository;
 import org.barista.service.common.dto.CodeDto;
 import org.barista.service.common.entity.CodeEntity;

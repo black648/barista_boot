@@ -7,14 +7,17 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.barista.framework.constants.CommonConstants;
 import org.barista.service.common.dto.CodeDto;
 import org.barista.service.common.dto.CodeSearchDto;
 import org.barista.service.common.entity.CodeEntity;
 import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,21 +36,17 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
     }
 
     @Override
-    public List<CodeDto> getList(Object obj, Expression<?>... expressions) {
-        CodeSearchDto searchDto = (CodeSearchDto) obj;
+    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
 
-        return queryFactory.select(Projections.fields(CodeDto.class, setSearchColumns(expressions)))
-                .from(codeEntity)
-                .where(
-                        grpCdEq(searchDto.getGrpCd()),
-                        cdEq(searchDto.getCd()),
-                        pcdEq(searchDto.getPcd()),
-                        levelEq(searchDto.getLevel()),
-                        useableEq()
-                )
-                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
-                .fetch();
+        JPAQuery select = getListSQL(obj, expressions);
+
+        Map<String, Object> listMap = new HashMap<>();
+        listMap.put(CommonConstants.CONST_LIST, select.fetch());
+        listMap.put(CommonConstants.CONST_LIST_COUNT, select.fetchCount());
+
+        return listMap;
     }
+
 
     public List<CodeEntity> getAll(Map<String, Object> paramMap, Sort sort) {
         return queryFactory.selectFrom(codeEntity)
@@ -60,6 +59,10 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
                 )
                 .orderBy(getOrderSpecifier(sort).stream().toArray(OrderSpecifier[]::new))
                 .fetch();
+    }
+
+    public List<CodeDto> getOnlyList(Object obj, Expression<?>... expressions) {
+        return getListSQL(obj, expressions).fetch();
     }
 
     // 조건부
@@ -95,6 +98,22 @@ public class CodeRepositoryImpl implements CodeRepositoryCustom {
         });
         return orders;
     }
+
+    private JPAQuery getListSQL (Object obj, Expression<?>... expressions) {
+        CodeSearchDto searchDto = (CodeSearchDto) obj;
+
+        return queryFactory.select(Projections.fields(CodeDto.class, setSearchColumns(expressions)))
+                        .from(codeEntity)
+                        .where(
+                                grpCdEq(searchDto.getGrpCd()),
+                                cdEq(searchDto.getCd()),
+                                pcdEq(searchDto.getPcd()),
+                                levelEq(searchDto.getLevel()),
+                                useableEq()
+                        )
+                        .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new));
+    }
+
 
     private Expression<?>[] setSearchColumns(Expression<?>... expressions) {
         return expressions.length == 0 ? new Expression[] {
