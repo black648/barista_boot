@@ -70,6 +70,29 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                 .fetch();
     }
 
+    public long getListCount(Object obj, Expression<?>... expressions) {
+        BoardSearchDto searchDto = (BoardSearchDto) obj;
+        return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
+                .from(Q_BOARD_ENTITY)
+                .where(
+                        idEq(searchDto.getId()),
+                        instanceIdEq(searchDto.getInstanceId()),
+                        contentLike(searchDto.getContent()),
+                        titleLike(searchDto.getTitle()),
+                        registerDeTo(searchDto.getRegisterDeTo()),
+                        registerDeFrom(searchDto.getRegisterDeFrom()),
+                        isPublicEq(searchDto.getIsPublic()),
+                        isNoticeEq(searchDto.getIsNotice()),
+                        delYnEq(searchDto.getDelYn())
+                )
+                .leftJoin(Q_BOARD_ENTITY.register, register)
+                .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
+                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .offset(setPage(searchDto.getPage()))
+                .limit(setPageSize(searchDto.getPageSize()))
+                .fetchCount();
+    }
+
     @Transactional
     public void update(String UID, Map<String, Object> paramMap) {
         JPAUpdateClause query = queryFactory.update(Q_BOARD_ENTITY).where(Q_BOARD_ENTITY.id.eq("12398sdwhasdfljkfdsa"));

@@ -15,4 +15,6 @@ public interface BaseRepository<Dto extends BaseDto> {
 
     Dto get(String id, Expression<?>... expressions);
     List<Dto> getList(Object obj, Expression<?>... expressions);
+
+    long getListCount(Object obj, Expression<?>... expressions);
 }

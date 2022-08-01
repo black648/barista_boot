@@ -15,6 +15,10 @@ public abstract class BaseServiceImpl<Dto extends BaseDto> implements BaseServic
         return getRepository().getList(obj, expressions);
     }
 
+    public long getListCount(Object obj, Expression<?>... expressions) {
+        return getRepository().getListCount(obj, expressions);
+    }
+
 //    public Dto update(Dto vo, Expression<?>... expressions) {
 //        return getRepository().
 //    }
