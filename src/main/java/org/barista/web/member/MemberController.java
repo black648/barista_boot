@@ -20,7 +20,6 @@ public class MemberController {
 
     @RequestMapping(value = "/getMember", method = RequestMethod.POST)
     public Object join(@RequestBody Map<String, String> paramMap) {
-        System.out.println("dajklshfaskljdfhalskdf");
         MemberDto member = ServiceUtil.getMemberService().get(paramMap.get("mberId"));
 
         return APIResultUtil.getAPIResult(member);

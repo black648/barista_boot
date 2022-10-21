@@ -17,22 +17,22 @@ public class ResumeEduEntity extends BaseEntity  implements Serializable {
 
 
     @Id
-    @Column(columnDefinition = "varchar(100)")
-    private String resumesn;
+    @Column(columnDefinition = "varchar(20)")
+    private String resumeSn;
 
     @Column(columnDefinition = "varchar(8)")
-    private String beginde;
+    private String beginDe;
 
     @Column(columnDefinition = "varchar(8)")
-    private String endde;
+    private String endDe;
 
     @Column(columnDefinition = "varchar(400)")
     private String institution;
 
     @Column(columnDefinition = "varchar(400)")
-    private String educontent;
+    private String eduContent;
 
     @Column(columnDefinition = "varchar(50)")
-    private String edutime;
+    private String eduTime;
 
 }

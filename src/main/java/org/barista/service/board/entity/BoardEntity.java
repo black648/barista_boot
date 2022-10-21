@@ -67,9 +67,4 @@ public class BoardEntity extends BaseEntity {
     //예비필드3
     @Column(columnDefinition = "varchar(100)")
     private String etc;
-
-    //파일 그룹핑넘버
-    @Column(columnDefinition = "varchar(20)")
-    private String fileGrpNo;
-
 }

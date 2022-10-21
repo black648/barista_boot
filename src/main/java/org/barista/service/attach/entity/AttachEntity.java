@@ -16,7 +16,7 @@ public class AttachEntity extends BaseEntity {
 
     @Id
     @Column(columnDefinition = "varchar(20)")
-    private String seqNo;
+    private String id;
 
     //저장된 파일명
     @Column(columnDefinition = "varchar(100)")
@@ -42,12 +42,12 @@ public class AttachEntity extends BaseEntity {
     @Column(columnDefinition = "varchar(100)")
     private String division;
 
-    //모듈 그룹핑 넘버
+    //모듈 그룹핑 UUID
     @Column(columnDefinition = "varchar(50)")
     private String divisionId;
 
     //첨부파일 순서
     @Column(columnDefinition = "int")
-    private Long grpNo;
+    private Long sortOrder;
 
 }

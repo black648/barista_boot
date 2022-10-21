@@ -16,25 +16,25 @@ import java.io.Serializable;
 public class ResumeCareerEntity extends BaseEntity implements Serializable {
 
     @Id
+    @Column(columnDefinition = "varchar(20)")
+    private String resumeSn;
+
+    @Column(columnDefinition = "varchar(8)")
+    private String beginDe;
+
+    @Column(columnDefinition = "varchar(8)")
+    private String endDe;
+
     @Column(columnDefinition = "varchar(100)")
-    private String resumesn;
-
-    @Column(columnDefinition = "varchar(8)")
-    private String beginde;
-
-    @Column(columnDefinition = "varchar(8)")
-    private String endde;
-
-    @Column(columnDefinition = "varchar(400)")
-    private String companyname;
+    private String companyName;
 
     @Column(columnDefinition = "varchar(100)")
     private String position;
 
     @Column(columnDefinition = "varchar(400)")
-    private String assigntask;
+    private String assignTask;
 
-    @Column(columnDefinition = "varchar(100)")
-    private String devision;
+    @Column(columnDefinition = "varchar(50)")
+    private String division;
 
 }

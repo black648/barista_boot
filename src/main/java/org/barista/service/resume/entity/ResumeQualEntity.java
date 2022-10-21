@@ -15,18 +15,18 @@ import java.io.Serializable;
 public class ResumeQualEntity  implements Serializable {
 
     @Id
-    @Column(columnDefinition = "varchar(100)")
-    private String RESUMESN;
+    @Column(columnDefinition = "varchar(20)")
+    private String resumeSn;
 
     @Column(columnDefinition = "varchar(400)")
-    private String qualname;
+    private String qualName;
 
     @Column(columnDefinition = "varchar(100)")
-    private String issueno;
+    private String issueNo;
 
     @Column(columnDefinition = "varchar(400)")
     private String institution;
 
     @Column(columnDefinition = "varchar(8)")
-    private String issuede;
+    private String issueDe;
 }

@@ -1,11 +1,9 @@
 package org.barista.service.board.service;
 
-import com.querydsl.core.types.dsl.StringPath;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.base.BaseRepository;
 import org.barista.framework.base.BaseServiceImpl;
 import org.barista.service.board.dto.BoardDto;
-import org.barista.service.board.entity.QBoardEntity;
 import org.barista.service.board.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 

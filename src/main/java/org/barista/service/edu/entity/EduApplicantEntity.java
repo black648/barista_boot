@@ -21,49 +21,49 @@ public class EduApplicantEntity extends BaseEntity {
 
 
     @Id
-    @Column(columnDefinition = "varchar(100)")
+    @Column(columnDefinition = "varchar(20)")
     private String apcSn;
 
-    @Column(columnDefinition = "varchar(100)")
+    @Column(columnDefinition = "varchar(20)")
     private String eduSn;
 
     @Column(columnDefinition = "varchar(20)")
     private String registerNo;
 
-    //등록자명
-    @Column(columnDefinition = "varchar(100)")
-    private String registerName;
-
-    @Column(columnDefinition = "smallint")
-    private int zipCode;
-
-    @Column(columnDefinition = "varchar(2000)")
-    private String adress1;
-
-    @Column(columnDefinition = "varchar(2000)")
-    private String adress2;
-
-    @Column(columnDefinition = "varchar(50)")
-    private String phone;
-
-    @Column(columnDefinition = "varchar(50)")
-    private String email;
-
-    @LastModifiedDate
-    @Column(columnDefinition = "varchar(2)")
-    private LocalDateTime finalDe;
-
-    @Column(columnDefinition = "varchar(2)")
-    private String finalYn;
-
-    @Column(columnDefinition = "varchar(2)")
-    private String eduYn;
-
-    @Column(columnDefinition = "varchar(100)")
-    private String registerEngName;
-
-    @Column(columnDefinition = "varchar(50)")
-    private String registerPhone;
+//    //등록자명
+//    @Column(columnDefinition = "varchar(100)")
+//    private String registerName;
+//
+//    @Column(columnDefinition = "smallint")
+//    private int zipCode;
+//
+//    @Column(columnDefinition = "varchar(2000)")
+//    private String adress1;
+//
+//    @Column(columnDefinition = "varchar(2000)")
+//    private String adress2;
+//
+//    @Column(columnDefinition = "varchar(50)")
+//    private String phone;
+//
+//    @Column(columnDefinition = "varchar(50)")
+//    private String email;
+//
+//    @LastModifiedDate
+//    @Column(columnDefinition = "varchar(2)")
+//    private LocalDateTime finalDe;
+//
+//    @Column(columnDefinition = "varchar(2)")
+//    private String finalYn;
+//
+//    @Column(columnDefinition = "varchar(2)")
+//    private String eduYn;
+//
+//    @Column(columnDefinition = "varchar(100)")
+//    private String registerEngName;
+//
+//    @Column(columnDefinition = "varchar(50)")
+//    private String registerPhone;
 
     @Column(columnDefinition = "varchar(1)")
     private String agree1;
