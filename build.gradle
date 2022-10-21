@@ -8,7 +8,7 @@ plugins {
 
 group = 'org.barista'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.11'
 
 configurations {
     compileOnly {
@@ -21,7 +21,7 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven { url "http://maven.jahia.org/maven2"}
+    maven { url "https://maven.jahia.org/maven2"}
 }
 
 dependencies {
@@ -33,20 +33,24 @@ dependencies {
     implementation 'commons-collections:commons-collections:3.2.2'
     implementation 'commons-lang:commons-lang:2.6'
     implementation 'com.fasterxml.uuid:java-uuid-generator:4.0.1'
-    implementation 'org.modelmapper:modelmapper:2.4.0'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
+//    implementation 'com.querydsl:querydsl-apt'
+
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 //    implementation files('lib/ojdbc6.jar')
 
 //    compile group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+//    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.3'
     compile('com.h2database:h2')
 }
 
