@@ -46,4 +46,4 @@ insert into barista.board (id, modifyDe, registDe, content, delYn, fileGrpNo, in
 INSERT INTO barista.member (mberNo, modifyDe, registDe, address1, address2, email, mberId, mberName, mberPhone, mberSe, password) VALUES ('Hhd7qpEs', null, null, null, null, 'black648', 'black648', '사용자1', null, 'ROLE_USER', '{bcrypt}$2a$10$cXswIQfOjYuQCk2ybvUGEu73rnLZpRMm3.MVTnlvGzWq8/flGC0FC');
 INSERT INTO barista.member (mberNo, modifyDe, registDe, address1, address2, email, mberId, mberName, mberPhone, mberSe, password) VALUES ('Hi87xq7u', null, null, null, null, 'admin', 'admin', '관리자', null, 'ROLE_USER', '{bcrypt}$2a$10$ZJzQuOwxoLagMXd35VILV.rpPbAHK43Pt8XIpnxEfZ7iOjoq5RPRW');
 
-update code set userDef2 = '\"instanceId\":1, \"page\":0, \"pageSize\":30' where cd in ('M0105','M010501');
+update code set userDef1 = '/boardList' userDef2 = '\"instanceId\":1, \"page\":0, \"pageSize\":30' where cd in ('M0105','M010501');
