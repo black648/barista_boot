@@ -12,12 +12,13 @@ public abstract class BaseServiceImpl<Dto extends BaseDto> implements BaseServic
     public Dto get(String id, Expression<?>... expressions) {
         return (Dto)getRepository().get(id, expressions);
     };
-    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
-        return getRepository().getList(obj, expressions);
+
+    public List<Dto> getJustList(Object obj, Expression<?>... expressions) {
+        return getRepository().getJustList(obj, expressions);
     }
 
-    public List<Dto> getOnlyList(Object obj, Expression<?>... expressions) {
-        return getRepository().getOnlyList(obj, expressions);
+    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
+        return getRepository().getList(obj, expressions);
     }
 
 //    public Dto update(Dto vo, Expression<?>... expressions) {

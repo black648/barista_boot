@@ -1,7 +1,7 @@
 package org.barista.service.board.repository;
 
+import com.querydsl.core.support.QueryBase;
 import com.querydsl.core.types.*;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAInsertClause;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.barista.framework.base.BaseMap;
 import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.constants.CommonConstants;
-import org.barista.framework.utils.ObjectUtil;
+import org.barista.framework.utils.RepositoryUtil;
 import org.barista.framework.utils.Utils;
 import org.barista.service.board.dto.BoardDto;
 import org.barista.service.board.dto.BoardSearchDto;
@@ -21,9 +21,7 @@ import org.barista.service.member.entity.QMemberEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,35 +34,39 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     QMemberEntity register = Q_MEMBER_ENTITY;
     QMemberEntity modifier = Q_MEMBER_ENTITY;
 
+    @Override
     public BoardDto get(String id, Expression<?>... expressions) {
         return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
                 .from(Q_BOARD_ENTITY)
-                .where(
-                        idEq(id),
-                        delYnEq("N")
-                )
+                .where( RepositoryUtil.equals(id, Q_BOARD_ENTITY.id),
+                        RepositoryUtil.equals("N", Q_BOARD_ENTITY.delYn))
                 .leftJoin(Q_BOARD_ENTITY.register, register)
                 .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
                 .fetchOne();
     }
 
-    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
+    @Override
+    public List<BoardDto> getJustList(Object obj, Expression<?>... expressions) {
         BoardSearchDto searchDto = (BoardSearchDto) obj;
         searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
 
-        JPAQuery select = getListSQL(obj, expressions);
+//        return getListSQL(getBaseSQL(searchDto, expressions), searchDto).fetch();
+
+        return getListSQL(getBaseSQL(searchDto, expressions), searchDto).fetch();
+    }
+
+    @Override
+    public Map<String, Object> getList(Object obj, Expression<?>... expressions) {
+
+        BoardSearchDto searchDto = (BoardSearchDto) obj;
+        searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
+
+        QueryBase<JPAQuery<BoardDto>> query = getBaseSQL(searchDto, expressions);
 
         return Map.of(
-                CommonConstants.CONST_LIST, select.fetch(),
-                CommonConstants.CONST_LIST_COUNT, select.fetchCount()
-        );
+                CommonConstants.CONST_LIST, getListSQL(query, searchDto).fetch(),
+                CommonConstants.CONST_LIST_COUNT, query.distinct().fetchCount());
     }
-
-    public List<BoardDto> getOnlyList(Object obj, Expression<?>... expressions) {
-        return getListSQL(obj, expressions).fetch();
-    }
-
-
 
     @Transactional
     public void update(String UID, Map<String, Object> paramMap) {
@@ -82,67 +84,29 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         query.execute();
     }
 
-    private JPAQuery getListSQL (Object obj, Expression<?>... expressions) {
-        BoardSearchDto searchDto = (BoardSearchDto) obj;
-        searchDto.setSort(searchDto.getOrder(), searchDto.getOrderProperty());
-
+    private JPAQuery getListSQL (QueryBase<JPAQuery<BoardDto>> queryBase, BoardSearchDto searchDto) {
+        return queryBase
+                .orderBy(RepositoryUtil.getOrderSpecifier(searchDto.getSort()
+                        , new PathBuilder(BoardEntity.class, "boardEntity")).stream().toArray(OrderSpecifier[]::new))
+                .offset(RepositoryUtil.setPage(searchDto.getPage()))
+                .limit(RepositoryUtil.setPageSize(searchDto.getPageSize()));
+    }
+    private QueryBase<JPAQuery<BoardDto>> getBaseSQL(BoardSearchDto searchDto, Expression<?>... expressions) {
         return queryFactory.select(Projections.fields(BoardDto.class, setSearchColumns(expressions)))
                 .from(Q_BOARD_ENTITY)
-                .where(
-                        idEq(searchDto.getId()),
-                        instanceIdEq(searchDto.getInstanceId()),
-                        contentLike(searchDto.getContent()),
-                        titleLike(searchDto.getTitle()),
-                        registerDeTo(searchDto.getRegisterDeTo()),
-                        registerDeFrom(searchDto.getRegisterDeFrom()),
-                        isPublicEq(searchDto.getIsPublic()),
-                        isNoticeEq(searchDto.getIsNotice()),
-                        delYnEq(searchDto.getDelYn())
-                )
+                .where(   RepositoryUtil.equals(searchDto.getId(), Q_BOARD_ENTITY.id)
+                        , RepositoryUtil.equals(searchDto.getInstanceId(), Q_BOARD_ENTITY.instanceId)
+                        , RepositoryUtil.like(searchDto.getContent(), Q_BOARD_ENTITY.content)
+                        , RepositoryUtil.like(searchDto.getTitle(), Q_BOARD_ENTITY.title)
+                        , RepositoryUtil.before(searchDto.getRegisterDeFrom(), Q_BOARD_ENTITY.registDe)
+                        , RepositoryUtil.before(searchDto.getRegisterDeTo(), Q_BOARD_ENTITY.registDe)
+                        , RepositoryUtil.equals(searchDto.getIsPublic(), Q_BOARD_ENTITY.isPublic)
+                        , RepositoryUtil.equals(searchDto.getIsNotice(), Q_BOARD_ENTITY.isNotice)
+                        , RepositoryUtil.equals(searchDto.getDelYn(), Q_BOARD_ENTITY.delYn))
                 .leftJoin(Q_BOARD_ENTITY.register, register)
-                .leftJoin(Q_BOARD_ENTITY.modifier, modifier)
-                .orderBy(getOrderSpecifier(searchDto.getSort()).stream().toArray(OrderSpecifier[]::new))
-                .offset(setPage(searchDto.getPage()))
-                .limit(setPageSize(searchDto.getPageSize()));
+                .leftJoin(Q_BOARD_ENTITY.modifier, modifier);
     }
 
-
-    // 조건부
-    private BooleanExpression idEq(String id) {
-        return id != null ? Q_BOARD_ENTITY.id.eq(id) : null;
-    }
-
-    private BooleanExpression instanceIdEq(String instanceId) {
-        return instanceId != null ? Q_BOARD_ENTITY.instanceId.eq(instanceId) : null;
-    }
-    //    검색 영역
-    private BooleanExpression contentLike(String content) {
-        return content != null ? Q_BOARD_ENTITY.content.like(content) : null;
-    }
-
-    private BooleanExpression titleLike(String title) {
-        return title != null ? Q_BOARD_ENTITY.title.like(title) : null;
-    }
-
-    private BooleanExpression registerDeTo(String registerDeTo) {
-        return ObjectUtil.isNotEmpty(registerDeTo) ? Q_BOARD_ENTITY.registDe.after(LocalDateTime.parse(registerDeTo)) : null;
-    }
-
-    private BooleanExpression registerDeFrom(String registerDeFrom) {
-        return ObjectUtil.isNotEmpty(registerDeFrom) ? Q_BOARD_ENTITY.registDe.before(LocalDateTime.parse(registerDeFrom)) : null;
-    }
-
-    private BooleanExpression isPublicEq(String isPublic) {
-        return isPublic != null ? Q_BOARD_ENTITY.isPublic.eq(isPublic) : null;
-    }
-
-    private BooleanExpression isNoticeEq(String isNotice) {
-        return isNotice != null ? Q_BOARD_ENTITY.isNotice.eq(isNotice) : null;
-    }
-
-    private BooleanExpression delYnEq(String delYn) {
-        return delYn != null ? Q_BOARD_ENTITY.delYn.eq(delYn) : null;
-    }
 
     private int setPage(String page) {
         return page != null ? Integer.parseInt(page) : 0;

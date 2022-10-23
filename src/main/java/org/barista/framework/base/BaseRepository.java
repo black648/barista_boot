@@ -1,6 +1,7 @@
 package org.barista.framework.base;
 
 import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.barista.service.attach.entity.QAttachEntity;
 import org.barista.service.board.entity.QBoardEntity;
 import org.barista.service.common.entity.QCodeEntity;
@@ -18,7 +19,8 @@ public interface BaseRepository<Dto extends BaseDto> {
     QAttachEntity Q_ATTACH_ENTITY = QAttachEntity.attachEntity;
 
     Dto get(String id, Expression<?>... expressions);
+    List<Dto> getJustList(Object obj, Expression<?>... expressions);
+
     Map<String, Object> getList(Object obj, Expression<?>... expressions);
 
-    List<Dto> getOnlyList(Object obj, Expression<?>... expressions);
 }

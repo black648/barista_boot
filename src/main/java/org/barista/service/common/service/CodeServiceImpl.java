@@ -1,6 +1,5 @@
 package org.barista.service.common.service;
 
-import com.querydsl.core.types.Expression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.barista.framework.base.BaseRepository;
@@ -38,11 +37,11 @@ public class CodeServiceImpl extends BaseServiceImpl<CodeDto> implements CodeSer
         searchDto.setSort(Sort.by(Sort.Order.asc(ColumnConstants.LEVEL)
                 , Sort.Order.asc(ColumnConstants.ORDER_NO)));
 
-        List<CodeDto> list = getOnlyList(searchDto);
+        List<CodeDto> list = getJustList(searchDto);
         list.stream().forEach(code -> {
             searchDto.setPcd(code.getCd());
             searchDto.setLevel(3);
-            code.setCodeList(getOnlyList(searchDto));
+            code.setCodeList(getJustList(searchDto));
         });
 
         return list;

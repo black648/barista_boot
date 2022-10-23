@@ -2,6 +2,7 @@ package org.barista.framework.utils;
 
 
 import com.fasterxml.uuid.Generators;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.hibernate.id.UUIDGenerator;
 
 import javax.crypto.Cipher;
@@ -446,5 +447,9 @@ public class Utils {
             number >>>= shift;
         } while (number != 0);
         return new String(buf, charPos, (64 - charPos));
+    }
+
+    public static BooleanExpression isExpression(String str, BooleanExpression expression) {
+        return str != null ? expression : null;
     }
 }
