@@ -34,6 +34,7 @@ dependencies {
     implementation 'commons-lang:commons-lang:2.6'
     implementation 'com.fasterxml.uuid:java-uuid-generator:4.0.1'
     implementation 'org.modelmapper:modelmapper:3.1.0'
+    testImplementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

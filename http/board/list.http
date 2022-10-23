@@ -1,0 +1,8 @@
+POST http://localhost:8099/board/list
+Content-Type: application/json
+
+{
+  "order": 1,
+  "orderProperty": "registDe",
+  "title": "알림"
+}
