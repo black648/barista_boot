@@ -2,6 +2,8 @@ POST http://localhost:8099/attach/list
 Content-Type: application/json
 
 {
+  "division": "division1",
+  "divisionId": "asdfasfd1",
   "order": 1,
   "orderProperty": "registDe"
 }

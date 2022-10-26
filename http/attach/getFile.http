@@ -1,0 +1,7 @@
+POST http://localhost:8099/attach/getFile
+Content-Type: application/json
+
+{
+  "division": "division1",
+  "divisionId": "asdfasfd1"
+}
