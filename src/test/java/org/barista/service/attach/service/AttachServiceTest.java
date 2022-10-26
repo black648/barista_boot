@@ -39,9 +39,9 @@ public class AttachServiceTest {
     @Test
 //    @Transactional
     @Rollback(false)
-    public void getListMap() {
+    public void getList() {
         AttachSearchDto searchDto = new AttachSearchDto();
-        Map<String, Object> map = ServiceUtil.getAttachService().getListMap(searchDto);
+        Map<String, Object> map = ServiceUtil.getAttachService().getList(searchDto);
         System.out.println("asdkfhkasd");
     }
 }

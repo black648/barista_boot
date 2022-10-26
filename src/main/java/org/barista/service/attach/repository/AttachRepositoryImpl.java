@@ -55,6 +55,15 @@ public class AttachRepositoryImpl implements AttachRepositoryCustorm {
         );
     }
 
+    @Override
+    public AttachDto getFile(AttachSearchDto searchDto, Expression<?>... expressions) {
+        return queryFactory.select(Projections.fields(AttachDto.class, setSearchColumns(expressions)))
+                .from(Q_ATTACH_ENTITY)
+                .where(RepositoryUtil.equals(searchDto.getDivision(), Q_ATTACH_ENTITY.division)
+                        , RepositoryUtil.equals(searchDto.getDivisionId(), Q_ATTACH_ENTITY.divisionId))
+                .fetchOne();
+    }
+
     private JPAQuery getListSQL (QueryBase<JPAQuery<AttachDto>> queryBase, AttachSearchDto searchDto) {
         return queryBase
                 .orderBy(RepositoryUtil.getOrderSpecifier(searchDto.getSort()
@@ -82,6 +91,7 @@ public class AttachRepositoryImpl implements AttachRepositoryCustorm {
                   Q_ATTACH_ENTITY.id
                 , Q_ATTACH_ENTITY.savedFileName
                 , Q_ATTACH_ENTITY.orgFileName
+                , Q_ATTACH_ENTITY.fileExt
                 , Q_ATTACH_ENTITY.dirPath
                 , Q_ATTACH_ENTITY.division
                 , Q_ATTACH_ENTITY.divisionId

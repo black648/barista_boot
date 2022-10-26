@@ -26,6 +26,13 @@ public class AttachEntity extends BaseEntity {
     @Column(columnDefinition = "varchar(100)")
     private String orgFileName;
 
+    //파일확장자
+    @Column(columnDefinition = "varchar(20)")
+    private String fileExt;
+
+    @Column(columnDefinition = "varchar(200)")
+    private String fileSize;
+
     //파일저장소
     @Column(columnDefinition = "varchar(100)")
     private String dirPath;
@@ -33,10 +40,6 @@ public class AttachEntity extends BaseEntity {
     //상태여부
     @Column(columnDefinition = "varchar(100)")
     private String state;
-
-    //수정자
-    @Column(columnDefinition = "varchar(20)")
-    private String modifierNo;
 
     //파일 저장된 모듈
     @Column(columnDefinition = "varchar(100)")
