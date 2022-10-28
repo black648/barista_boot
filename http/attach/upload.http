@@ -1,0 +1,13 @@
+POST http://localhost:8099/attach/upLoad
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file[]"; filename="uploadTest.png"
+
+< /Users/hkl/upload/testFile/uploadTest.png
+--boundary--
+
+{
+  "division": "test",
+  "divisionId": "saldfhajskldf"
+}

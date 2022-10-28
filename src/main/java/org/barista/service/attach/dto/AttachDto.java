@@ -4,6 +4,8 @@ import lombok.Data;
 import org.barista.framework.base.BaseDto;
 import org.barista.service.attach.entity.AttachEntity;
 
+import java.time.LocalDateTime;
+
 @Data
 public class AttachDto extends BaseDto {
     private String id;
@@ -18,12 +20,15 @@ public class AttachDto extends BaseDto {
     private String divisionId;
     private Long sortOrder;
 
+    private LocalDateTime registDe;
+
 
     public AttachEntity toAttachEntity() {
         return AttachEntity.builder()
                 .id(id)
                 .savedFileName(savedFileName)
                 .fileExt(fileExt)
+                .fileSize(fileSize)
                 .dirPath(dirPath)
                 .division(division)
                 .divisionId(divisionId)

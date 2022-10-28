@@ -4,6 +4,7 @@ import lombok.*;
 import org.barista.framework.base.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="attach")

@@ -8,13 +8,11 @@ import org.barista.framework.utils.FileUtil;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.service.attach.dto.AttachDto;
 import org.barista.service.attach.dto.AttachSearchDto;
-import org.barista.service.attach.entity.AttachEntity;
 import org.barista.service.attach.repository.AttachRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 @Service
@@ -43,13 +41,11 @@ public class AttachServiceImpl extends BaseServiceImpl<AttachDto> implements Att
     @Override
     public AttachDto fileUpload(MultipartFile multipartFile) throws Exception {
         AttachDto attachDto = null;
-
+        System.out.println(multipartFile.getSize());
         if (!multipartFile.isEmpty()) {
             attachDto = FileUtil.setAttachDto(multipartFile);
-
             try {
-                FileCopyUtils.copy(multipartFile.getInputStream()
-                        , new FileOutputStream(attachDto.getRealDirPath()));
+                FileCopyUtils.copy(multipartFile.getInputStream(), new FileOutputStream(attachDto.getRealDirPath()));
                 attachRepository.save(attachDto.toAttachEntity());
             } catch (Exception e) {
                 throw new Exception("업로드에 실패하였습니다.");

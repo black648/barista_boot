@@ -1,5 +1,6 @@
 package org.barista.framework.utils;
 
+import org.barista.framework.component.PropertyComponent;
 import org.barista.service.attach.dto.AttachDto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ public class FileUtil {
     public static String getUploadPath(String fileExt) throws Exception {
         try {
             Calendar currentTime = Calendar.getInstance();
-            String fileDirPath = getDir(currentTime);
+            String fileDirPath = PropertyComponent.fileUploadPath + getDir(currentTime);
 
             File dir = new File(fileDirPath);
             if (!dir.isDirectory()) {
@@ -25,7 +26,7 @@ public class FileUtil {
 
     public static String getDir(Calendar currentTime){
         return currentTime.get(Calendar.YEAR) + File.separator
-                + currentTime.get(Calendar.MONTH) + File.separator
+                + (currentTime.get(Calendar.MONTH) + 1) + File.separator
                 + currentTime.get(Calendar.DAY_OF_MONTH) + File.separator
                 + currentTime.get(Calendar.HOUR_OF_DAY);
     }
@@ -37,7 +38,7 @@ public class FileUtil {
         attachDto.setId(Utils.getID());
         attachDto.setOrgFileName(multipartFile.getOriginalFilename());
         attachDto.setSavedFileName(Utils.getID());
-        attachDto.setFileSize(Utils.getID());
+        attachDto.setFileSize(String.valueOf(multipartFile.getSize()));
         attachDto.setFileExt(getFileExt(attachDto.getOrgFileName()));
         attachDto.setDivision(Utils.getID());
         attachDto.setDivisionId(Utils.getID());
