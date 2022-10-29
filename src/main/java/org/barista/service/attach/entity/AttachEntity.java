@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Table(name="attach")
 @ToString
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class AttachEntity extends BaseEntity {
 
@@ -54,4 +52,18 @@ public class AttachEntity extends BaseEntity {
     @Column(columnDefinition = "int")
     private Long sortOrder;
 
+    @Builder
+    public AttachEntity(String id, String savedFileName, String orgFileName, String fileExt, String fileSize, String dirPath, String state, String division, String divisionId, Long sortOrder) {
+        super();
+        this.id = id;
+        this.savedFileName = savedFileName;
+        this.orgFileName = orgFileName;
+        this.fileExt = fileExt;
+        this.fileSize = fileSize;
+        this.dirPath = dirPath;
+        this.state = state;
+        this.division = division;
+        this.divisionId = divisionId;
+        this.sortOrder = sortOrder;
+    }
 }

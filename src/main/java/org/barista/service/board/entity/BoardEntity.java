@@ -1,6 +1,9 @@
 package org.barista.service.board.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.barista.framework.base.BaseEntity;
 import org.barista.service.member.entity.MemberEntity;
 
@@ -10,8 +13,6 @@ import javax.persistence.*;
 @Table(name="board")
 @ToString
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class BoardEntity extends BaseEntity {
 
@@ -67,4 +68,22 @@ public class BoardEntity extends BaseEntity {
     //예비필드3
     @Column(columnDefinition = "varchar(100)")
     private String etc;
+
+    @Builder
+    public BoardEntity(String id, String instanceId, String title, String content, MemberEntity register, MemberEntity modifier, String isNotice, String isPublic, String delYn, Long readCnt, String codeId, String boardType, String etc) {
+        super();
+        this.id = id;
+        this.instanceId = instanceId;
+        this.title = title;
+        this.content = content;
+        this.register = register;
+        this.modifier = modifier;
+        this.isNotice = isNotice;
+        this.isPublic = isPublic;
+        this.delYn = delYn;
+        this.readCnt = readCnt;
+        this.codeId = codeId;
+        this.boardType = boardType;
+        this.etc = etc;
+    }
 }

@@ -15,8 +15,6 @@ import java.util.stream.Stream;
 @Table(name="member")
 @ToString
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class MemberEntity extends BaseEntity implements UserDetails {
 
@@ -56,6 +54,20 @@ public class MemberEntity extends BaseEntity implements UserDetails {
         return Stream.of(this.mberSe.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+    @Builder
+    public MemberEntity(String mberNo, String mberName, String mberId, String password, String mberPhone, String address1, String address2, String mberSe, String email) {
+        super();
+        this.mberNo = mberNo;
+        this.mberName = mberName;
+        this.mberId = mberId;
+        this.password = password;
+        this.mberPhone = mberPhone;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.mberSe = mberSe;
+        this.email = email;
     }
 
     @Override

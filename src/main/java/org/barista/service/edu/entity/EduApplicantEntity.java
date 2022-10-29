@@ -14,10 +14,8 @@ import java.time.LocalDateTime;
 @Table(name="eduapplicant")
 @ToString
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class EduApplicantEntity extends BaseEntity {
+public class EduApplicantEntity extends BaseEntity{
 
 
     @Id
@@ -70,6 +68,16 @@ public class EduApplicantEntity extends BaseEntity {
 
     @Column(columnDefinition = "varchar(1)")
     private String agree2;
+
+    @Builder
+    public EduApplicantEntity(String apcSn, String eduSn, String registerNo, String agree1, String agree2) {
+        super();
+        this.apcSn = apcSn;
+        this.eduSn = eduSn;
+        this.registerNo = registerNo;
+        this.agree1 = agree1;
+        this.agree2 = agree2;
+    }
 
 
 /*
