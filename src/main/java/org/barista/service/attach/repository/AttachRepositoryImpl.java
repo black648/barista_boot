@@ -78,6 +78,7 @@ public class AttachRepositoryImpl implements AttachRepositoryCustorm {
                 .from(Q_ATTACH_ENTITY)
                 .where(
                           RepositoryUtil.equals(searchDto.getId(), Q_ATTACH_ENTITY.id)
+                        , RepositoryUtil.in(searchDto.getIds(), Q_ATTACH_ENTITY.id)
                         , RepositoryUtil.equals(searchDto.getSavedFileName(), Q_ATTACH_ENTITY.savedFileName)
                         , RepositoryUtil.equals(searchDto.getOrgFileName(), Q_ATTACH_ENTITY.orgFileName)
                         , RepositoryUtil.equals(searchDto.getDirPath(), Q_ATTACH_ENTITY.dirPath)

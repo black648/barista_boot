@@ -1,7 +1,6 @@
 package org.barista.service.attach.dto;
 
 import lombok.Data;
-import org.barista.framework.base.BaseDto;
 import org.barista.framework.base.BaseSearchDto;
 
 @Data
@@ -14,4 +13,6 @@ public class AttachSearchDto extends BaseSearchDto {
     private String division;
     private String divisionId;
     private Long sortOrder;
+
+    private String[] ids;
 }

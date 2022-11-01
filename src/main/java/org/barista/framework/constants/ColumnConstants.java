@@ -4,6 +4,7 @@ public class ColumnConstants {
 
     //Board
     public static final String ID = "id";
+    public static final String IDS = "ids";
     public static final String INSTANCE_ID = "instanceId";
     public static final String CONTENT = "content";
     public static final String TITLE = "title";
@@ -33,5 +34,8 @@ public class ColumnConstants {
     public static final String REGIST_DE = "registDe";
     public static final String REGISTER_DE = "registerDe";
     public static final String MODIFY_DE = "modifyDe";
+
+    public static final String DIVISION = "division";
+    public static final String DIVISION_ID = "divisionId";
 
 }

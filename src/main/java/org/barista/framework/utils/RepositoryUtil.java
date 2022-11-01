@@ -15,6 +15,10 @@ public class RepositoryUtil {
         return str != null ? path.eq(str) : null;
     }
 
+    public static BooleanExpression in(String[] str, StringPath path) {
+        return str != null ? path.in(str) : null;
+    }
+
     public static BooleanExpression equalsNumber(int num, NumberPath path) {
         return num != 0 ? path.eq(num) : null;
     }

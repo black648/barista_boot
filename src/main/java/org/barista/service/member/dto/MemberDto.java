@@ -47,7 +47,6 @@ public class MemberDto extends BaseDto {
                 .address2(address2)
                 .mberSe(mberSe)
                 .email(email)
-                .tokenKey(tokenKey)
                 .build();
     }
 }

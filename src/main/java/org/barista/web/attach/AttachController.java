@@ -1,9 +1,12 @@
 package org.barista.web.attach;
 
 import lombok.extern.log4j.Log4j2;
+import org.barista.framework.constants.ColumnConstants;
+import org.barista.framework.constants.CommonConstants;
 import org.barista.framework.utils.*;
 import org.barista.service.attach.dto.AttachDto;
 import org.barista.service.attach.dto.AttachSearchDto;
+import org.barista.service.attach.service.AttachService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/attach")
@@ -29,11 +33,6 @@ public class AttachController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public APIResult getList(@RequestBody AttachSearchDto searchDto) {
         return APIResultUtil.getAPIResult(ServiceUtil.getAttachService().getList(searchDto));
-    }
-
-    @RequestMapping(value = "/downLoad", method = {RequestMethod.GET, RequestMethod.POST})
-    public APIResult downLoad(@RequestBody AttachSearchDto searchDto) {
-        return APIResultUtil.getAPIResult();
     }
 
     @RequestMapping(value = "/upLoad", method = {RequestMethod.GET, RequestMethod.POST})
@@ -53,6 +52,16 @@ public class AttachController {
         responseKeyValue.put("list", attachList);
 
         return APIResultUtil.getAPIResult(responseKeyValue);
+    }
+
+    @RequestMapping(value = "/downLoad", method = {RequestMethod.GET, RequestMethod.POST})
+    public APIResult downLoad(@RequestBody Map<String, Object> paramMap) throws Exception {
+
+        String ids = (String) paramMap.get(ColumnConstants.IDS);
+        paramMap.put(ColumnConstants.IDS, ids.split(CommonConstants.CONST_COMMA));
+
+        ServiceUtil.getAttachService().fileDownload(ConvertUtil.mapToDTO(paramMap, AttachSearchDto.class));
+        return APIResultUtil.getAPIResult();
     }
 
 }

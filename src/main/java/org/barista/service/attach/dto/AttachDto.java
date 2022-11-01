@@ -22,6 +22,8 @@ public class AttachDto extends BaseDto {
 
     private LocalDateTime registDe;
 
+    private String[] ids;
+
 
     public AttachEntity toAttachEntity() {
         return AttachEntity.builder()

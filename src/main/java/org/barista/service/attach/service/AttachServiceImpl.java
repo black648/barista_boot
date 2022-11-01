@@ -4,6 +4,7 @@ import com.querydsl.core.types.Expression;
 import lombok.RequiredArgsConstructor;
 import org.barista.framework.base.BaseRepository;
 import org.barista.framework.base.BaseServiceImpl;
+import org.barista.framework.constants.ColumnConstants;
 import org.barista.framework.utils.FileUtil;
 import org.barista.framework.utils.ObjectUtil;
 import org.barista.service.attach.dto.AttachDto;
@@ -14,6 +15,9 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +56,26 @@ public class AttachServiceImpl extends BaseServiceImpl<AttachDto> implements Att
             }
         }
         return attachDto;
+    }
+
+    public void fileDownload(AttachSearchDto searchDto) {
+        searchDto.setOrder(1);
+        searchDto.setOrderProperty(ColumnConstants.REGIST_DE);
+
+        List<AttachDto> attachList = getJustList(searchDto);
+        System.out.println("aksdfhaklsdhj");
+//        try{
+//            if (storageList.size() > 1) {
+//                2개 이상의 경우 zip
+//                UpDownComponent.zipFileDownLoad(storageList);
+//            } else {
+//                1개의 경우 단일파일
+//                UpDownComponent.singleFileDownLoad(storageList.get(0));
+//            }
+//        }catch (Exception e){
+//             다운로드 실패용.!!!
+//            e.printStackTrace();
+//        }
     }
 
 

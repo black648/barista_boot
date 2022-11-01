@@ -1,0 +1,8 @@
+POST http://localhost:8099/attach/downLoad
+Content-Type: application/json
+
+{
+  "division": "division1",
+  "divisionId": "asdfasfd1",
+  "ids": "5b3r8uBd,5Fnx164D,5Gy9qc8x,5HgHAr98"
+}
