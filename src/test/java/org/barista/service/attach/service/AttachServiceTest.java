@@ -42,6 +42,6 @@ public class AttachServiceTest {
     public void getList() {
         AttachSearchDto searchDto = new AttachSearchDto();
         Map<String, Object> map = ServiceUtil.getAttachService().getList(searchDto);
-        System.out.println("asdkfhkasd");
+        System.out.println("asdkfhkas   d");
     }
 }
